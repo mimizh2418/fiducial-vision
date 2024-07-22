@@ -1,0 +1,19 @@
+[project]
+name = "fiducialvision"
+version = "0.0.1"
+dependencies = [
+    "numpy",
+    "opencv-python",
+]
+requires-python = ">=3.8"
+license = {file = "LICENSE.md"}
+authors = [
+    {name = "Alvin Zhang", email = "41vin2h4n9@gmail.com"}
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+run-pipeline = "fiducialvision.fiducialvision:run_pipeline"
