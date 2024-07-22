@@ -3,8 +3,7 @@ from typing import Dict
 
 import numpy as np
 import numpy.typing as npt
-
-from ..geometry import Pose3d
+from wpimath.geometry import Pose3d
 
 
 @dataclass(frozen=True)

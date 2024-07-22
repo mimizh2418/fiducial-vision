@@ -2,9 +2,9 @@ import json
 
 import cv2.aruco
 import numpy as np
+from wpimath.geometry import Pose3d, Rotation3d
 
 from .config_types import CameraConfig, FiducialConfig
-from ..geometry import *
 
 
 fiducial_families = {
@@ -61,7 +61,7 @@ def load_fiducial_config(config_filename: str) -> FiducialConfig:
             translation_data[0],
             translation_data[1],
             translation_data[2],
-            Rotation3d.from_euler_angles(rotation_data["roll"], rotation_data["pitch"], rotation_data["yaw"]))
+            Rotation3d(rotation_data["roll"], rotation_data["pitch"], rotation_data["yaw"]))
         layout[tag_id] = pose
 
     return FiducialConfig(family, size, layout)

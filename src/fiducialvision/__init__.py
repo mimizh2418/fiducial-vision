@@ -1,6 +1,5 @@
 __all__ = [
     'config',
-    'geometry',
     'pipeline',
     'run_pipeline'
 ]

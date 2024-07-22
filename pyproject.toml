@@ -4,6 +4,7 @@ version = "0.0.1"
 dependencies = [
     "numpy",
     "opencv-python",
+    "robotpy-wpimath"
 ]
 requires-python = ">=3.8"
 license = {file = "LICENSE.md"}
