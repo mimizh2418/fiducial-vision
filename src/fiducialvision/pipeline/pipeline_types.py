@@ -15,8 +15,8 @@ class FiducialTagObservation:
 @dataclass(frozen=True)
 class PoseEstimate:
     tag_ids: List[int]
-    pose_0: Pose3d
-    error_0: float
-    pose_1: Union[Pose3d, None]
-    error_1: Union[float, None]
+    pose: Pose3d
+    reproj_error: float
+    pose_alternate: Union[Pose3d, None]
+    reproj_error_alternate: Union[float, None]
 
