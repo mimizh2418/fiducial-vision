@@ -17,8 +17,6 @@ class FiducialDetector:
         corners, ids, rejected_points = self.detector.detectMarkers(image)
         if len(corners) == 0:
             return []
-        return [
-            FiducialTagObservation(tag_id[0], corner_pts[0])
-            for tag_id, corner_pts in zip(ids, corners)
-            if tag_id[0] in self.accepted_ids
-        ]
+        return [FiducialTagObservation(tag_id[0], corner_pts[0])
+                for tag_id, corner_pts in zip(ids, corners)
+                if tag_id[0] in self.accepted_ids]

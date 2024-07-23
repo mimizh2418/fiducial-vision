@@ -6,7 +6,6 @@ from wpimath.geometry import Pose3d, Rotation3d
 
 from .config_types import CameraConfig, FiducialConfig
 
-
 fiducial_families = {
     'aruco_4x4_50': cv2.aruco.DICT_4X4_50,
     'aruco_4x4_100': cv2.aruco.DICT_4X4_100,
@@ -57,11 +56,10 @@ def load_fiducial_config(config_filename: str) -> FiducialConfig:
         tag_id = tag_data['id']
         translation_data = tag_data['position']
         rotation_data = tag_data['rotation']
-        pose = Pose3d(
-            translation_data[0],
-            translation_data[1],
-            translation_data[2],
-            Rotation3d(rotation_data["roll"], rotation_data["pitch"], rotation_data["yaw"]))
+        pose = Pose3d(translation_data[0],
+                      translation_data[1],
+                      translation_data[2],
+                      Rotation3d(rotation_data["roll"], rotation_data["pitch"], rotation_data["yaw"]))
         layout[tag_id] = pose
 
     return FiducialConfig(family, size, layout)
