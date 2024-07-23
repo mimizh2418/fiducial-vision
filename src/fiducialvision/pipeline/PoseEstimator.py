@@ -69,8 +69,8 @@ class PoseEstimator:
             return None
 
         try:
-            retval, rvecs, tvecs, reproj_errors = cv2.solvePnPGeneric(object_points,
-                                                                      image_points,
+            retval, rvecs, tvecs, reproj_errors = cv2.solvePnPGeneric(np.array(object_points),
+                                                                      np.array(image_points),
                                                                       self.camera_matrix,
                                                                       self.dist_coeffs,
                                                                       flags=cv2.SOLVEPNP_SQPNP)
