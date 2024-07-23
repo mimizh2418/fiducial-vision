@@ -1,12 +1,12 @@
 import sys
-from typing import List, Union
+from typing import Sequence, Union
 
 import cv2
 import numpy as np
-from wpimath.geometry import Transform3d
+from wpimath.geometry import Pose3d, Rotation3d, Transform3d
 
 from ..config import CameraConfig, FiducialConfig
-from ..coordinate_util import *
+from ..coordinate_util import from_opencv_pose, to_opencv_translation
 from .pipeline_types import FiducialTagObservation, PoseEstimate
 
 
@@ -52,7 +52,7 @@ class PoseEstimator:
                             world_to_camera_alt,
                             reproj_errors[1][0])
 
-    def solve_multi_target(self, visible_tags: List[FiducialTagObservation]) -> Union[PoseEstimate, None]:
+    def solve_multi_target(self, visible_tags: Sequence[FiducialTagObservation]) -> Union[PoseEstimate, None]:
         if len(self.tag_layout.keys()) == 0 or len(visible_tags) == 0:
             return None
 
