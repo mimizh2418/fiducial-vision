@@ -13,7 +13,3 @@ def from_opencv_translation(tvec: npt.NDArray[np.float64]) -> Translation3d:
 
 def from_opencv_rotation(rvec: npt.NDArray[np.float64]) -> Rotation3d:
     return Rotation3d(np.array([rvec[2], -rvec[0], -rvec[1]]), np.linalg.norm(rvec))
-
-
-def from_opencv_pose(rvec: npt.NDArray[np.float64], tvec: npt.NDArray[np.float64]) -> Pose3d:
-    return Pose3d(from_opencv_translation(tvec), from_opencv_rotation(rvec))
