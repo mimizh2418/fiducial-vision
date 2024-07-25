@@ -1,5 +1,20 @@
-__all__ = ["FiducialDetector", "PoseEstimator", "FiducialTagObservation", "PoseEstimate"]
+__all__ = [
+    "CaptureFrame",
+    "FiducialDetector",
+    "ArUcoFiducialDetector",
+    "FiducialTagDetection",
+    "FiducialDetectorResult",
+    "PoseEstimator",
+    "PoseEstimatorResult",
+    "Pipeline",
+    "PipelineResult"
+]
 
 from .PoseEstimator import PoseEstimator
-from .FiducialDetector import FiducialDetector
-from .pipeline_types import FiducialTagObservation, PoseEstimate
+from .FiducialDetector import ArUcoFiducialDetector
+from .Pipeline import Pipeline
+from .pipeline_types import (CaptureFrame,
+                             FiducialTagDetection,
+                             FiducialDetectorResult,
+                             PoseEstimatorResult,
+                             PipelineResult)

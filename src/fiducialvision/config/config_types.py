@@ -8,7 +8,6 @@ from wpimath.geometry import Pose3d
 
 @dataclass(frozen=True)
 class CameraConfig:
-    index: int
     camera_resolution_height: int
     camera_resolution_width: int
     intrinsics_matrix: npt.NDArray[np.float64]

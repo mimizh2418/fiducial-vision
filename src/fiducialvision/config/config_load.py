@@ -35,13 +35,12 @@ def load_camera_config(config_filename: str) -> CameraConfig:
     with open(config_filename, 'r') as f:
         cfg_data = json.loads(f.read())
 
-    index = cfg_data['camera_id']
     resolution_width = cfg_data['img_width']
     resolution_height = cfg_data['img_height']
     camera_matrix = np.array(cfg_data['camera_matrix'])
     dist_coeffs = np.array(cfg_data['distortion_coefficients'])
 
-    return CameraConfig(index, resolution_height, resolution_width, camera_matrix, dist_coeffs)
+    return CameraConfig(resolution_height, resolution_width, camera_matrix, dist_coeffs)
 
 
 def load_fiducial_config(config_filename: str) -> FiducialConfig:

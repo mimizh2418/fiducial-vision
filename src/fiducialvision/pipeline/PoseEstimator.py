@@ -1,5 +1,5 @@
 import sys
-from typing import Sequence, Union
+from typing import Sequence
 
 import cv2
 import numpy as np
@@ -7,7 +7,7 @@ from wpimath.geometry import Pose3d, Rotation3d, Transform3d
 
 from ..config import CameraConfig, FiducialConfig
 from ..coordinate_util import to_opencv_translation, from_opencv_translation, from_opencv_rotation
-from .pipeline_types import FiducialTagObservation, PoseEstimate
+from .pipeline_types import FiducialTagDetection, PoseEstimatorResult
 
 
 class PoseEstimator:
@@ -18,11 +18,11 @@ class PoseEstimator:
         self.tag_layout = fiducial_config.tag_layout
         self.accepted_ids = fiducial_config.tag_layout.keys()
 
-    def solve_single_target(self, observed_tag: FiducialTagObservation) -> Union[PoseEstimate, None]:
+    def solve_single_target(self, observed_tag: FiducialTagDetection) -> PoseEstimatorResult:
         if (len(self.accepted_ids) == 0
                 or observed_tag.id not in self.accepted_ids
                 or len(observed_tag.corners) != 4):
-            return None
+            return PoseEstimatorResult([], None, None, None, None)
 
         object_points = np.array([[-self.tag_size / 2.0, self.tag_size / 2.0, 0],
                                   [self.tag_size / 2.0, self.tag_size / 2.0, 0],
@@ -38,7 +38,7 @@ class PoseEstimator:
                                                                       flags=cv2.SOLVEPNP_IPPE_SQUARE)
         except cv2.error as e:
             print(f"Error in SOLVE_PNP_IPPE_SQUARE, no solution will be returned: {e}", file=sys.stderr)
-            return None
+            return PoseEstimatorResult([], None, None, None, None)
 
         tag_pose = self.tag_layout[observed_tag.id]
         camera_pose = tag_pose.transformBy(
@@ -46,15 +46,15 @@ class PoseEstimator:
         camera_pose_alt = tag_pose.transformBy(
             Transform3d(from_opencv_translation(tvecs[0]), from_opencv_rotation(rvecs[0])).inverse())
 
-        return PoseEstimate([observed_tag.id],
-                            camera_pose,
-                            reproj_errors[0][0],
-                            camera_pose_alt,
-                            reproj_errors[1][0])
+        return PoseEstimatorResult([observed_tag],
+                                   camera_pose,
+                                   reproj_errors[0][0],
+                                   camera_pose_alt,
+                                   reproj_errors[1][0])
 
-    def solve_multi_target(self, visible_tags: Sequence[FiducialTagObservation]) -> Union[PoseEstimate, None]:
+    def solve_multi_target(self, visible_tags: Sequence[FiducialTagDetection]) -> PoseEstimatorResult:
         if len(self.accepted_ids) == 0 or len(visible_tags) == 0:
-            return None
+            return PoseEstimatorResult([], None, None, None, None)
 
         tag_ids = []
         object_points = []
@@ -71,7 +71,7 @@ class PoseEstimator:
                              [tag.corners[3][0], tag.corners[3][1]]]
 
         if len(object_points) == 0:
-            return None
+            return PoseEstimatorResult([], None, None, None, None)
 
         try:
             retval, rvecs, tvecs, reproj_errors = cv2.solvePnPGeneric(np.array(object_points),
@@ -81,14 +81,14 @@ class PoseEstimator:
                                                                       flags=cv2.SOLVEPNP_SQPNP)
         except cv2.error as e:
             print(f"Error in SOLVE_PNP_SQPNP, no solution will be returned: {e}", file=sys.stderr)
-            return None
+            return PoseEstimatorResult([], None, None, None, None)
 
         camera_pose = Pose3d().transformBy(Transform3d(from_opencv_translation(tvecs[0]),
                                                        from_opencv_rotation(rvecs[0])).inverse())
 
-        return PoseEstimate(tag_ids, camera_pose, reproj_errors[0][0], None, None)
+        return PoseEstimatorResult(visible_tags, camera_pose, reproj_errors[0][0], None, None)
 
-    def __get_multi_tag_object_points(self, observed_tag: FiducialTagObservation):
+    def __get_multi_tag_object_points(self, observed_tag: FiducialTagDetection):
         tag_pose = self.tag_layout[observed_tag.id]
         corners = [tag_pose.transformBy(Transform3d(0, self.tag_size / 2.0, -self.tag_size / 2.0, Rotation3d())),
                    tag_pose.transformBy(Transform3d(0, -self.tag_size / 2.0, -self.tag_size / 2.0, Rotation3d())),
