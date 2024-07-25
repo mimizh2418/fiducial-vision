@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict
+from typing import Dict, Union
 
 import numpy as np
 import numpy.typing as npt
@@ -7,11 +7,19 @@ from wpimath.geometry import Pose3d
 
 
 @dataclass(frozen=True)
-class CameraConfig:
-    camera_resolution_height: int
-    camera_resolution_width: int
+class CameraCalibrationParams:
     intrinsics_matrix: npt.NDArray[np.float64]
     distortion_coefficients: npt.NDArray[np.float64]
+
+
+@dataclass(frozen=True)
+class CameraConfig:
+    id: Union[int, str]
+    resolution_height: int
+    resolution_width: int
+    auto_exposure: float
+    exposure: float
+    gain: float
 
 
 @dataclass(frozen=True)

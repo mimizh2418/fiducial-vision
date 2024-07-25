@@ -18,9 +18,13 @@ class Pipeline:
         pose_result = PoseEstimatorResult([], None, None, None, None)
         if self.estimate_poses:
             if len(detector_result.tag_detections) == 1:
-                pose_result = self.pose_estimator.solve_single_target(detector_result.tag_detections[0])
+                pose_result = self.pose_estimator.solve_single_target(detector_result.tag_detections[0],
+                                                                      frame.camera_intrinsics_mat,
+                                                                      frame.camera_dist_coeffs)
             else:
-                pose_result = self.pose_estimator.solve_multi_target(detector_result.tag_detections)
+                pose_result = self.pose_estimator.solve_multi_target(detector_result.tag_detections,
+                                                                     frame.camera_intrinsics_mat,
+                                                                     frame.camera_dist_coeffs)
         process_dt_nanos = time.perf_counter_ns() - process_dt_nanos
 
         return PipelineResult(frame.timestamp_nanos,

@@ -4,7 +4,7 @@ import cv2.aruco
 import numpy as np
 from wpimath.geometry import Pose3d, Rotation3d
 
-from .config_types import CameraConfig, FiducialConfig
+from .config_types import CameraConfig, FiducialConfig, CameraCalibrationParams
 
 fiducial_families = {
     'aruco_4x4_50': cv2.aruco.DICT_4X4_50,
@@ -31,16 +31,30 @@ fiducial_families = {
 }
 
 
+def load_camera_calibration(calib_filename: str) -> CameraCalibrationParams:
+    calib_file = cv2.FileStorage(calib_filename, cv2.FILE_STORAGE_READ)
+    intrinsics_mat = calib_file.getNode("camera_matrix").mat()
+    dist_coeffs = calib_file.getNode("distortion_coefficients").mat()
+    calib_file.release()
+
+    if type(intrinsics_mat) is not np.ndarray or type(dist_coeffs) is not np.ndarray:
+        raise ValueError("Invalid calibration file")
+
+    return CameraCalibrationParams(intrinsics_mat, dist_coeffs)
+
+
 def load_camera_config(config_filename: str) -> CameraConfig:
     with open(config_filename, 'r') as f:
         cfg_data = json.loads(f.read())
 
+    camera_id = cfg_data['id']
     resolution_width = cfg_data['img_width']
     resolution_height = cfg_data['img_height']
-    camera_matrix = np.array(cfg_data['camera_matrix'])
-    dist_coeffs = np.array(cfg_data['distortion_coefficients'])
+    auto_exposure = cfg_data['auto_exposure']
+    exposure = cfg_data['exposure']
+    gain = cfg_data['gain']
 
-    return CameraConfig(resolution_height, resolution_width, camera_matrix, dist_coeffs)
+    return CameraConfig(camera_id, resolution_height, resolution_width, auto_exposure, exposure, gain)
 
 
 def load_fiducial_config(config_filename: str) -> FiducialConfig:

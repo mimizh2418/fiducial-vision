@@ -8,22 +8,23 @@ from .pipeline import *
 
 def run_pipeline():
     camera_config = load_camera_config('camera_config.json')
+    calib_params = load_camera_calibration('calibration.json')
     fiducial_config = load_fiducial_config('fiducial_config.json')
 
-    vid = cv2.VideoCapture(0)
-    vid.set(cv2.CAP_PROP_FRAME_WIDTH, camera_config.camera_resolution_width)
-    vid.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_config.camera_resolution_height)
+    vid = cv2.VideoCapture(camera_config.id)
+    vid.set(cv2.CAP_PROP_FRAME_WIDTH, camera_config.resolution_width)
+    vid.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_config.resolution_height)
     detector = ArUcoFiducialDetector(fiducial_config)
-    pose_estimator = PoseEstimator(camera_config, fiducial_config)
+    pose_estimator = PoseEstimator(fiducial_config)
     pipeline = Pipeline(detector, pose_estimator)
 
     while True:
         ret, frame = vid.read()
         result = pipeline.process_frame(CaptureFrame(frame, time.time_ns(), 0,
-                                                     camera_config.camera_resolution_height,
-                                                     camera_config.camera_resolution_width,
-                                                     camera_config.intrinsics_matrix,
-                                                     camera_config.distortion_coefficients))
+                                                     camera_config.resolution_height,
+                                                     camera_config.resolution_width,
+                                                     calib_params.intrinsics_matrix,
+                                                     calib_params.distortion_coefficients))
 
         if result.pose_estimate.has_pose:
             print(result.pose_estimate.pose)
