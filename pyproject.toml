@@ -1,20 +1,26 @@
-[project]
+[tool.poetry]
+package-mode = true
 name = "fiducialvision"
 version = "0.0.1"
-dependencies = [
-    "numpy",
-    "opencv-python",
-    "robotpy-wpimath"
-]
-requires-python = ">=3.8"
-license = {file = "LICENSE.md"}
+description = "Fiducial marker detection and pose estimation system"
+license = "MIT"
 authors = [
-    {name = "Alvin Zhang", email = "41vin2h4n9@gmail.com"}
+    "Alvin Zhang <41vin2h4n9@gmail.com>"
 ]
+repository = "https://github.com/mimizh2418/fiducial-vision"
+
+
+[tool.poetry.dependencies]
+python = "^3.9"
+numpy = "^1.26.4"
+opencv-python = "^4.10.0.84"
+robotpy-wpimath = "^2024.3.2.1"
+
+
+[tool.poetry.scripts]
+run-pipeline = "fiducialvision.fiducialvision:run_pipeline"
+
 
 [build-system]
-requires = ["setuptools>=64.0"]
-build-backend = "setuptools.build_meta"
-
-[project.scripts]
-run-pipeline = "fiducialvision.fiducialvision:run_pipeline"
+requires = ["poetry-core>=1.8.3"]
+build-backend = "poetry-core.masonry.api"
