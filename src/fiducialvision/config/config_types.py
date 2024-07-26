@@ -8,6 +8,8 @@ from wpimath.geometry import Pose3d
 
 @dataclass(frozen=True)
 class CameraCalibrationParams:
+    resolution_height: int
+    resolution_width: int
     intrinsics_matrix: npt.NDArray[np.float64]
     distortion_coefficients: npt.NDArray[np.float64]
 
@@ -19,7 +21,7 @@ class CameraConfig:
     resolution_width: int
     auto_exposure: float
     exposure: float
-    gain: float
+    brightness: float
 
 
 @dataclass(frozen=True)

@@ -33,6 +33,7 @@ fiducial_families = {
 
 def load_camera_calibration(calib_filename: str) -> CameraCalibrationParams:
     calib_file = cv2.FileStorage(calib_filename, cv2.FILE_STORAGE_READ)
+    resolution = calib_file.getNode("img_size").mat()
     intrinsics_mat = calib_file.getNode("camera_matrix").mat()
     dist_coeffs = calib_file.getNode("distortion_coefficients").mat()
     calib_file.release()
@@ -40,7 +41,7 @@ def load_camera_calibration(calib_filename: str) -> CameraCalibrationParams:
     if type(intrinsics_mat) is not np.ndarray or type(dist_coeffs) is not np.ndarray:
         raise ValueError("Invalid calibration file")
 
-    return CameraCalibrationParams(intrinsics_mat, dist_coeffs)
+    return CameraCalibrationParams(resolution[1][0], resolution[0][0], intrinsics_mat, dist_coeffs)
 
 
 def load_camera_config(config_filename: str) -> CameraConfig:
@@ -52,9 +53,9 @@ def load_camera_config(config_filename: str) -> CameraConfig:
     resolution_height = cfg_data['img_height']
     auto_exposure = cfg_data['auto_exposure']
     exposure = cfg_data['exposure']
-    gain = cfg_data['gain']
+    brightness = cfg_data['brightness']
 
-    return CameraConfig(camera_id, resolution_height, resolution_width, auto_exposure, exposure, gain)
+    return CameraConfig(camera_id, resolution_height, resolution_width, auto_exposure, exposure, brightness)
 
 
 def load_fiducial_config(config_filename: str) -> FiducialConfig:

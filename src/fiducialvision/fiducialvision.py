@@ -7,24 +7,31 @@ from .pipeline import *
 
 
 def run_pipeline():
+    cv2.setLogLevel(6)
+
     camera_config = load_camera_config('camera_config.json')
     calib_params = load_camera_calibration('calibration.json')
     fiducial_config = load_fiducial_config('fiducial_config.json')
 
-    vid = cv2.VideoCapture(camera_config.id)
-    vid.set(cv2.CAP_PROP_FRAME_WIDTH, camera_config.resolution_width)
-    vid.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_config.resolution_height)
+    capture = DefaultCapture(camera_config, calib_params)
     detector = ArUcoFiducialDetector(fiducial_config)
     pose_estimator = PoseEstimator(fiducial_config)
     pipeline = Pipeline(detector, pose_estimator)
 
+    last_fps_time = time.perf_counter_ns()
+    frame_count = 0
+
     while True:
-        ret, frame = vid.read()
-        result = pipeline.process_frame(CaptureFrame(frame, time.time_ns(), 0,
-                                                     camera_config.resolution_height,
-                                                     camera_config.resolution_width,
-                                                     calib_params.intrinsics_matrix,
-                                                     calib_params.distortion_coefficients))
+        ret, frame = capture.get_frame()
+        result = pipeline.process_frame(frame)
+
+        frame_count += 1
+        current_time = time.perf_counter_ns()
+        if current_time - last_fps_time > 1e9:
+            fps = frame_count / ((current_time - last_fps_time) * 1e-9)
+            last_fps_time = current_time
+            frame_count = 0
+            # print(fps)
 
         if result.pose_estimate.has_pose:
             print(result.pose_estimate.pose)
@@ -32,5 +39,4 @@ def run_pipeline():
         if cv2.waitKey(1) == ord('q'):
             break
 
-    vid.release()
     cv2.destroyAllWindows()

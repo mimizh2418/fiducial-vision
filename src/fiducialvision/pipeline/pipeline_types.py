@@ -11,7 +11,6 @@ from wpimath.geometry import Pose3d
 class CaptureFrame:
     image: cv2.Mat
     timestamp_nanos: int
-    capture_dt_nanos: int
     resolution_height: int
     resolution_width: int
     camera_intrinsics_mat: npt.NDArray[np.float64]

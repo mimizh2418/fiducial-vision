@@ -2,7 +2,7 @@
   "id": 0,
   "img_width": 1280,
   "img_height": 720,
-  "auto_exposure": 0.25,
-  "exposure": 0.1,
-  "gain": 0.5
+  "auto_exposure": 0.75,
+  "exposure": -4.0,
+  "brightness": 128
 }
