@@ -7,8 +7,6 @@ from .pipeline import *
 
 
 def run_pipeline():
-    cv2.setLogLevel(6)
-
     camera_config = load_camera_config('camera_config.json')
     calib_params = load_camera_calibration('calibration.json')
     fiducial_config = load_fiducial_config('fiducial_config.json')
@@ -31,7 +29,6 @@ def run_pipeline():
             fps = frame_count / ((current_time - last_fps_time) * 1e-9)
             last_fps_time = current_time
             frame_count = 0
-            # print(fps)
 
         if result.pose_estimate.has_pose:
             print(result.pose_estimate.pose)

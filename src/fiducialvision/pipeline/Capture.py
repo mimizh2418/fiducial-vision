@@ -18,8 +18,8 @@ class DefaultCapture(Capture):
         self.config = camera_config
         self.calibration = camera_calibration
         self.video = cv2.VideoCapture(camera_config.id)
-        print(self.video.set(cv2.CAP_PROP_FRAME_WIDTH, camera_config.resolution_width))
-        print(self.video.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_config.resolution_height))
+        self.video.set(cv2.CAP_PROP_FRAME_WIDTH, camera_config.resolution_width)
+        self.video.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_config.resolution_height)
 
         if (camera_config.resolution_height != camera_calibration.resolution_height
                 or camera_config.resolution_width != camera_calibration.resolution_width):
