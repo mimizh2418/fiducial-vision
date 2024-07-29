@@ -13,18 +13,14 @@ class CaptureFrame:
     timestamp_nanos: int
     resolution_height: int
     resolution_width: int
-    camera_intrinsics_mat: npt.NDArray[np.float64]
-    camera_dist_coeffs: npt.NDArray[np.float64]
 
 
 @dataclass(frozen=True)
 class FiducialTagDetection:
     id: int
     corners: npt.NDArray[np.float64]
-    center_pt: npt.NDArray[np.float64]
-    yaw_rad: float
-    pitch_rad: float
-    area: float
+    yaw_rad: Union[float, None]
+    pitch_rad: Union[float, None]
 
 
 @dataclass(frozen=True)
@@ -40,12 +36,6 @@ class PoseEstimatorResult:
     reproj_error: Union[float, None]
     pose_alternate: Union[Pose3d, None]
     reproj_error_alternate: Union[float, None]
-    has_pose: bool = field(init=False)
-    has_alternate_pose: bool = field(init=False)
-
-    def __post_init__(self):
-        self.has_pose = self.pose is not None
-        self.has_alternate_pose = self.pose_alternate is not None
 
 
 @dataclass(frozen=True)

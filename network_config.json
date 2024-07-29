@@ -1,0 +1,5 @@
+{
+  "device_id": "vision_test",
+  "server_ip": "localhost",
+  "stream_port": 8000
+}

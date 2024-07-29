@@ -72,6 +72,34 @@ numpy = [
 ]
 
 [[package]]
+name = "pyntcore"
+version = "2024.3.2.1"
+description = "Binary wrappers for the FRC ntcore library"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "pyntcore-2024.3.2.1-cp310-cp310-macosx_10_16_x86_64.whl", hash = "sha256:797f63318d74d6ac35377959963d96a5d7efdd8aab83bde53d8460d57187d081"},
+    {file = "pyntcore-2024.3.2.1-cp310-cp310-manylinux_2_35_x86_64.whl", hash = "sha256:bb004fd47cb421420b951d1b4f317459d92254b24622a126bf532c19c0f9bb04"},
+    {file = "pyntcore-2024.3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:141977ac2dd907bbbfc825cea714903b556f5bef6f85f2ee400c962a926b9fc1"},
+    {file = "pyntcore-2024.3.2.1-cp311-cp311-macosx_12_0_universal2.whl", hash = "sha256:e9b522da7779c648a3a0fb1c6825efe8a76df782ac3f0e1eba8df9327a09e9d8"},
+    {file = "pyntcore-2024.3.2.1-cp311-cp311-manylinux_2_35_x86_64.whl", hash = "sha256:74c872d24db91dd0e1c8e268fa55f806645cc1e9c013cc802b0d22dd0eb85e2a"},
+    {file = "pyntcore-2024.3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:9784b8944a276330d5c3a28d863ad73ce9751c15a3e1617ce7a8b7d42bc0f438"},
+    {file = "pyntcore-2024.3.2.1-cp312-cp312-macosx_12_0_universal2.whl", hash = "sha256:cd8e05bdcfb7f147f846553bb96a286aa479c436b5708b192d21da487643c706"},
+    {file = "pyntcore-2024.3.2.1-cp312-cp312-manylinux_2_35_x86_64.whl", hash = "sha256:125620969a399da9a90b1806c90aa46476dbcb8b9a2f079d888eb08da8f2057c"},
+    {file = "pyntcore-2024.3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:4c9bc823706a1245c62ba6b9eaf4ddf46e647bb00b8a540e29adb182bf3ad361"},
+    {file = "pyntcore-2024.3.2.1-cp38-cp38-macosx_10_16_x86_64.whl", hash = "sha256:e000d07c54db917b601e305186afc988d14a97b1ec5bd2eabcce12dc0f6dfd9d"},
+    {file = "pyntcore-2024.3.2.1-cp38-cp38-manylinux_2_35_x86_64.whl", hash = "sha256:1d19f9d8fc197c2e62d8d491007649f4098589fae551500bf33ad308f5d45782"},
+    {file = "pyntcore-2024.3.2.1-cp38-cp38-win_amd64.whl", hash = "sha256:9dc7ecf3b8c08877222659a53d1d20e95686acd3478ebb3792bf3ab6544f4f92"},
+    {file = "pyntcore-2024.3.2.1-cp39-cp39-macosx_10_16_x86_64.whl", hash = "sha256:8077da9871cdeff82ed68f184dada6d13f11a522d3ceadcb0c7312235cde8277"},
+    {file = "pyntcore-2024.3.2.1-cp39-cp39-manylinux_2_35_x86_64.whl", hash = "sha256:38df52c068daf75d25e235be05a19aec15d49c54171143ccc28bbd60453c870c"},
+    {file = "pyntcore-2024.3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:34cdc971f220c11b9fb4441d1ac88b7a71a46c68786f5264d7bdc03d1517dae4"},
+]
+
+[package.dependencies]
+robotpy-wpinet = "2024.3.2.1"
+robotpy-wpiutil = "2024.3.2.1"
+
+[[package]]
 name = "robotpy-wpimath"
 version = "2024.3.2.1"
 description = "Binary wrapper for FRC WPIMath library"
@@ -93,6 +121,33 @@ files = [
     {file = "robotpy_wpimath-2024.3.2.1-cp39-cp39-macosx_10_16_x86_64.whl", hash = "sha256:1269304e9feb646d4c60366ada36596c04ff8133222b434c54e8befd5ef16405"},
     {file = "robotpy_wpimath-2024.3.2.1-cp39-cp39-manylinux_2_35_x86_64.whl", hash = "sha256:5c1a500b10d340d63ff0056373b56a5cdff92c734a65b226098049c8e084ee55"},
     {file = "robotpy_wpimath-2024.3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:4440fa8089ec0bc87f2e26d447e7510a666dec6918ac6234b9a843716cd88e95"},
+]
+
+[package.dependencies]
+robotpy-wpiutil = "2024.3.2.1"
+
+[[package]]
+name = "robotpy-wpinet"
+version = "2024.3.2.1"
+description = "Binary wrapper for FRC wpinet library"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "robotpy_wpinet-2024.3.2.1-cp310-cp310-macosx_10_16_x86_64.whl", hash = "sha256:ce0284d78e2219fe8108e792eaff994b5af162f2afc10072cd63da733bb6d519"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp310-cp310-manylinux_2_35_x86_64.whl", hash = "sha256:63b8d1098a8ee147c292e4cfed271c78b7749b087fe445ccfe038778c23812aa"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:68c132a5e8f674310f3d2d53224c3045d5e2d0f4cff77ed9223fd422a6d548a8"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp311-cp311-macosx_12_0_universal2.whl", hash = "sha256:127aaf05fa3e846581f63c347ca62df1a1cd0a831e8d73865e16570143f1d70f"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp311-cp311-manylinux_2_35_x86_64.whl", hash = "sha256:718826ad336437ce6bc4e833326390a977bd56d00f22012fae3bb8da03464a96"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:5af246cc8063256df73575778b88d0141fe60b0b42fc6c11b7791934c3155fc1"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp312-cp312-macosx_12_0_universal2.whl", hash = "sha256:c4b3bfd3452fe8f571924fedfc2cc11d61b3d2a6df897e8fd0014800e1db47aa"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp312-cp312-manylinux_2_35_x86_64.whl", hash = "sha256:78fa34db28343bd8e081cbe3c981b00b2a0c7682cfc052bad2152777e06ab305"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:88d377af878062c94cd95b1e262879365119282e55ca9fa5b87d316201767688"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp38-cp38-macosx_10_16_x86_64.whl", hash = "sha256:4c260cdd1e238241653f96a02250c7e2a38bf6c55c75af52978f3a98fabb9cfb"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp38-cp38-manylinux_2_35_x86_64.whl", hash = "sha256:3582d9442f40b2a2d6a7f881c6460685de56b1ca000199626c0c8e8fcd0b3a2f"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp38-cp38-win_amd64.whl", hash = "sha256:1db3b30fac72395e0ec176a7e7df20f3dc5111c2503e63205ecb447c7c18f4f9"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp39-cp39-macosx_10_16_x86_64.whl", hash = "sha256:c1b2532a4d0398f2e24ec187606cdf08173ea9f79d57d0bb14a2494a35474577"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp39-cp39-manylinux_2_35_x86_64.whl", hash = "sha256:6baad3d9f7ab9238d07bd88d62f47d8d9407eddcb70b04b275fe4a6ddf750ffe"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:f38745b77f2b0e1d4aadf4bf91617af3bd508eb6c665ff4960c614b5643f597c"},
 ]
 
 [package.dependencies]
@@ -125,4 +180,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "74170aa792d755a7b4fec5c4a979f6b45a2a3d2b71de699d90ef4e8f6fe9ad44"
+content-hash = "8f42038c6d84e98053f74942a4867e2a6dd6892f493259d70852c0230a538b08"

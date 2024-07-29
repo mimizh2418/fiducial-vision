@@ -1,11 +1,11 @@
+import dataclasses
 import time
 from typing import Tuple
 
 import cv2
 
-from ..config import CameraConfig
+from ..config import CameraConfig, Config
 from .pipeline_types import CaptureFrame
-from ..config.config_types import CameraCalibrationParams
 
 
 class Capture:
@@ -14,26 +14,37 @@ class Capture:
 
 
 class DefaultCapture(Capture):
-    def __init__(self, camera_config: CameraConfig, camera_calibration: CameraCalibrationParams):
-        self.config = camera_config
-        self.calibration = camera_calibration
-        self.video = cv2.VideoCapture(camera_config.id)
-        self.video.set(cv2.CAP_PROP_FRAME_WIDTH, camera_config.resolution_width)
-        self.video.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_config.resolution_height)
+    _config: CameraConfig
+    _last_config: CameraConfig
+    _video: cv2.VideoCapture
 
-        if (camera_config.resolution_height != camera_calibration.resolution_height
-                or camera_config.resolution_width != camera_calibration.resolution_width):
-            print("Warning: camera resolution does not match calibration resolution, pose estimation may be incorrect")
+    def __init__(self, config: Config):
+        self._config = config.camera
+        self._last_config = dataclasses.replace(self._config)
+        self._video = cv2.VideoCapture(self._config.id)
+        self._video.set(cv2.CAP_PROP_FRAME_WIDTH, self._config.resolution_width)
+        self._video.set(cv2.CAP_PROP_FRAME_HEIGHT, self._config.resolution_height)
+        self._video.set(cv2.CAP_PROP_AUTO_EXPOSURE, self._config.auto_exposure)
+        self._video.set(cv2.CAP_PROP_EXPOSURE, self._config.exposure)
+        self._video.set(cv2.CAP_PROP_GAIN, self._config.gain)
 
     def get_frame(self) -> Tuple[bool, CaptureFrame]:
+        if self._last_config != self._config:
+            if self._last_config.id != self._config.id:
+                self._video.open(self._config.id)
+            self._video.set(cv2.CAP_PROP_FRAME_WIDTH, self._config.resolution_width)
+            self._video.set(cv2.CAP_PROP_FRAME_HEIGHT, self._config.resolution_height)
+            self._video.set(cv2.CAP_PROP_AUTO_EXPOSURE, self._config.auto_exposure)
+            self._video.set(cv2.CAP_PROP_EXPOSURE, self._config.exposure)
+            self._video.set(cv2.CAP_PROP_GAIN, self._config.gain)
+            self._last_config = dataclasses.replace(self._config)
+
         timestamp = time.time_ns()
-        ret, frame = self.video.read()
+        ret, frame = self._video.read()
         return ret, CaptureFrame(frame,
                                  timestamp,
-                                 self.config.resolution_height,
-                                 self.config.resolution_width,
-                                 self.calibration.intrinsics_matrix,
-                                 self.calibration.distortion_coefficients)
+                                 self._last_config.resolution_height,
+                                 self._last_config.resolution_width)
 
     def __del__(self):
-        self.video.release()
+        self._video.release()
