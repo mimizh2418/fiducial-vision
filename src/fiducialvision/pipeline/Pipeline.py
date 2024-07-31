@@ -1,9 +1,10 @@
 import time
-from typing import Union
+
+import cv2
 
 from . import PoseEstimator
 from .FiducialDetector import ArUcoFiducialDetector
-from .pipeline_types import CaptureFrame, PipelineResult, PoseEstimatorResult
+from .pipeline_types import CaptureFrame, PipelineResult
 from ..config import Config
 
 
@@ -15,7 +16,8 @@ class Pipeline:
 
     def process_frame(self, frame: CaptureFrame) -> PipelineResult:
         process_dt_nanos = time.perf_counter_ns()
-        detector_result = self.fiducial_detector.process_frame(frame)
+        detector_result = self.fiducial_detector.detect_fiducials(frame)
+        image = cv2.aruco.drawDetectedMarkers(frame.image, detector_result.corners, detector_result.ids)
         pose_result = None
         if self.estimate_poses:
             if len(detector_result.tag_detections) == 1:
@@ -26,6 +28,6 @@ class Pipeline:
 
         return PipelineResult(frame.timestamp_nanos,
                               process_dt_nanos,
-                              detector_result.processed_image,
+                              image,
                               detector_result,
                               pose_result)

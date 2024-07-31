@@ -38,7 +38,7 @@ class PoseEstimator:
                                                                       self.config.calibration.distortion_coefficients,
                                                                       flags=cv2.SOLVEPNP_IPPE_SQUARE)
         except cv2.error as e:
-            print(f"Error in SOLVE_PNP_IPPE_SQUARE, no solution will be returned: {e}", file=sys.stderr)
+            print(f"Error in SOLVEPNP_IPPE_SQUARE, no solution will be returned: {e}", file=sys.stderr)
             return None
 
         tag_pose = self.config.fiducial.tag_layout[observed_tag.id]
@@ -47,11 +47,7 @@ class PoseEstimator:
         camera_pose_alt = tag_pose.transformBy(
             Transform3d(from_opencv_translation(tvecs[0]), from_opencv_rotation(rvecs[0])).inverse())
 
-        return PoseEstimatorResult([observed_tag],
-                                   camera_pose,
-                                   reproj_errors[0][0],
-                                   camera_pose_alt,
-                                   reproj_errors[1][0])
+        return PoseEstimatorResult(camera_pose, reproj_errors[0][0], camera_pose_alt, reproj_errors[1][0])
 
     def solve_multi_target(self, visible_tags: Sequence[FiducialTagDetection]) -> Union[PoseEstimatorResult, None]:
         if (not self.config.has_tag_layout()
@@ -75,7 +71,7 @@ class PoseEstimator:
                              [tag.corners[3][0], tag.corners[3][1]]]
 
         if len(object_points) == 0:
-            return PoseEstimatorResult([], None, None, None, None)
+            return None
 
         try:
             retval, rvecs, tvecs, reproj_errors = cv2.solvePnPGeneric(np.array(object_points),
@@ -84,13 +80,13 @@ class PoseEstimator:
                                                                       self.config.calibration.distortion_coefficients,
                                                                       flags=cv2.SOLVEPNP_SQPNP)
         except cv2.error as e:
-            print(f"Error in SOLVE_PNP_SQPNP, no solution will be returned: {e}", file=sys.stderr)
+            print(f"Error in SOLVEPNP_SQPNP, no solution will be returned: {e}", file=sys.stderr)
             return None
 
         camera_pose = Pose3d().transformBy(Transform3d(from_opencv_translation(tvecs[0]),
                                                        from_opencv_rotation(rvecs[0])).inverse())
 
-        return PoseEstimatorResult(visible_tags, camera_pose, reproj_errors[0][0], None, None)
+        return PoseEstimatorResult(camera_pose, reproj_errors[0][0], None, None)
 
     def __get_multi_tag_object_points(self, observed_tag: FiducialTagDetection) -> List[npt.NDArray[np.float64]]:
         tag_pose = self.config.fiducial.tag_layout[observed_tag.id]

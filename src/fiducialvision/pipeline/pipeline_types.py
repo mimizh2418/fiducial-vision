@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Union, Sequence
 
 import cv2
@@ -19,21 +19,19 @@ class CaptureFrame:
 class FiducialTagDetection:
     id: int
     corners: npt.NDArray[np.float64]
-    yaw_rad: Union[float, None]
-    pitch_rad: Union[float, None]
 
 
 @dataclass(frozen=True)
 class FiducialDetectorResult:
-    processed_image: cv2.Mat
+    ids: npt.NDArray[np.int32]
+    corners: Sequence[npt.NDArray[np.float64]]
     tag_detections: Sequence[FiducialTagDetection]
 
 
 @dataclass
 class PoseEstimatorResult:
-    tag_detections: Sequence[FiducialTagDetection]
-    pose: Union[Pose3d, None]
-    reproj_error: Union[float, None]
+    pose: Pose3d
+    reproj_error: float
     pose_alternate: Union[Pose3d, None]
     reproj_error_alternate: Union[float, None]
 
