@@ -31,6 +31,10 @@ def run_pipeline():
         config.refresh_nt()
 
         ret, frame = capture.get_frame()
+        if not ret:
+            time.sleep(0.2)
+            continue
+
         result = pipeline.process_frame(frame)
 
         frame_count += 1
