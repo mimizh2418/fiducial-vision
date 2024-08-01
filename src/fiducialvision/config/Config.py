@@ -98,7 +98,7 @@ class Config:
 
         self.fiducial.tag_size_m = self._tag_size_entry.get()
 
-        if family_change := self._tag_family_entry.getLastChange() > self._last_family_update:
+        if (family_change := self._tag_family_entry.getLastChange()) > self._last_family_update:
             tag_family = self._tag_family_entry.get()
             if tag_family in self.fiducial_families:
                 self.fiducial.tag_family = self.fiducial_families[tag_family]
@@ -108,7 +108,7 @@ class Config:
                 self.fiducial.tag_family = cv2.aruco.DICT_APRILTAG_36h11
             self._last_family_update = family_change
 
-        if layout_change := self._tag_layout_entry.getLastChange() > self._last_layout_update:
+        if (layout_change := self._tag_layout_entry.getLastChange()) > self._last_layout_update:
             try:
                 self.fiducial.tag_layout = {}
                 tag_layout_data = json.loads(self._tag_layout_entry.get())
