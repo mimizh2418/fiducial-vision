@@ -98,8 +98,7 @@ class Config:
 
         self.fiducial.tag_size_m = self._tag_size_entry.get()
 
-        family_change = self._tag_family_entry.getLastChange()
-        if self._last_family_update < family_change:
+        if family_change := self._tag_family_entry.getLastChange() > self._last_family_update:
             tag_family = self._tag_family_entry.get()
             if tag_family in self.fiducial_families:
                 self.fiducial.tag_family = self.fiducial_families[tag_family]
@@ -109,8 +108,7 @@ class Config:
                 self.fiducial.tag_family = cv2.aruco.DICT_APRILTAG_36h11
             self._last_family_update = family_change
 
-        layout_change = self._tag_layout_entry.getLastChange()
-        if self._last_layout_update < layout_change:
+        if layout_change := self._tag_layout_entry.getLastChange() > self._last_layout_update:
             try:
                 self.fiducial.tag_layout = {}
                 tag_layout_data = json.loads(self._tag_layout_entry.get())
@@ -142,25 +140,29 @@ class Config:
             table.getDoubleTopic("camera_auto_exposure").getEntry(self.camera.auto_exposure))
         self._camera_exposure_entry = table.getDoubleTopic("camera_exposure").getEntry(self.camera.exposure)
         self._camera_gain_entry = table.getDoubleTopic("camera_gain").getEntry(self.camera.gain)
-        self._tag_family_entry = table.getStringTopic("tag_family").getEntry("")
+        self._tag_family_entry = table.getStringTopic("tag_family").getEntry("apriltag_36h11")
         self._tag_size_entry = table.getDoubleTopic("tag_size_m").getEntry(self.fiducial.tag_size_m)
         self._tag_layout_entry = table.getStringTopic("tag_layout").getEntry("")
 
-        time.sleep(0.5)  # IDK why I need this but getting retained values immediately doesn't work for some reason
-        all_entries = [self._camera_id_entry,
-                       self._camera_resolution_w_entry,
-                       self._camera_resolution_h_entry,
-                       self._camera_auto_exposure_entry,
-                       self._camera_exposure_entry,
-                       self._camera_gain_entry,
-                       self._tag_family_entry,
-                       self._tag_size_entry,
-                       self._tag_layout_entry]
+        self._camera_id_entry.setDefault(str(self.camera.id))
+        self._camera_resolution_w_entry.setDefault(self.camera.resolution_width)
+        self._camera_resolution_h_entry.setDefault(self.camera.resolution_height)
+        self._camera_auto_exposure_entry.setDefault(self.camera.auto_exposure)
+        self._camera_exposure_entry.setDefault(self.camera.exposure)
+        self._camera_gain_entry.setDefault(self.camera.gain)
+        self._tag_family_entry.setDefault("apriltag_36h11")
+        self._tag_size_entry.setDefault(self.fiducial.tag_size_m)
+        self._tag_layout_entry.setDefault("")
 
-        for entry in all_entries:
-            if not entry.exists():
-                entry.set(entry.get())
-            entry.getTopic().setRetained(True)
+        self._camera_id_entry.getTopic().setRetained(True)
+        self._camera_resolution_w_entry.getTopic().setRetained(True)
+        self._camera_resolution_h_entry.getTopic().setRetained(True)
+        self._camera_auto_exposure_entry.getTopic().setRetained(True)
+        self._camera_exposure_entry.getTopic().setRetained(True)
+        self._camera_gain_entry.getTopic().setRetained(True)
+        self._tag_family_entry.getTopic().setRetained(True)
+        self._tag_size_entry.getTopic().setRetained(True)
+        self._tag_layout_entry.getTopic().setRetained(True)
 
         self._nt_initialized = True
 
