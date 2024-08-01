@@ -1,3 +1,4 @@
+import logging
 import time
 
 import cv2
@@ -12,6 +13,7 @@ CALIBRATION_FILE = 'calibration.json'
 
 
 def run_pipeline():
+    logging.basicConfig(level=logging.DEBUG)
 
     config = Config()
     config.refresh_local(NETWORK_CONFIG_FILE, CALIBRATION_FILE)
