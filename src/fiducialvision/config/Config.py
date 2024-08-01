@@ -1,5 +1,6 @@
 import json
 import sys
+import time
 from typing import Dict, Union
 
 import cv2.aruco
@@ -145,6 +146,7 @@ class Config:
         self._tag_size_entry = table.getDoubleTopic("tag_size_m").getEntry(self.fiducial.tag_size_m)
         self._tag_layout_entry = table.getStringTopic("tag_layout").getEntry("")
 
+        time.sleep(0.5)  # IDK why I need this but getting retained values immediately doesn't work for some reason
         all_entries = [self._camera_id_entry,
                        self._camera_resolution_w_entry,
                        self._camera_resolution_h_entry,
