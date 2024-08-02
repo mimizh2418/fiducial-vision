@@ -10,7 +10,7 @@ from wpimath.geometry import Pose3d
 @dataclass(frozen=True)
 class CaptureFrame:
     image: cv2.Mat
-    timestamp_nanos: int
+    timestamp_ns: int
     resolution_height: int
     resolution_width: int
 
@@ -19,13 +19,6 @@ class CaptureFrame:
 class FiducialTagDetection:
     id: int
     corners: npt.NDArray[np.float64]
-
-
-@dataclass(frozen=True)
-class FiducialDetectorResult:
-    ids: npt.NDArray[np.int32]
-    corners: Sequence[npt.NDArray[np.float64]]
-    tag_detections: Sequence[FiducialTagDetection]
 
 
 @dataclass
@@ -38,9 +31,9 @@ class PoseEstimatorResult:
 
 @dataclass(frozen=True)
 class PipelineResult:
-    capture_timestamp_nanos: int
-    process_dt_nanos: int
+    capture_timestamp_ns: int
+    process_dt_ns: int
     processed_image: cv2.Mat
 
-    detector_result: FiducialDetectorResult
+    detector_result: Sequence[FiducialTagDetection]
     pose_estimate: Union[PoseEstimatorResult, None]

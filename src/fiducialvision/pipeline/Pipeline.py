@@ -16,18 +16,20 @@ class Pipeline:
 
     def process_frame(self, frame: CaptureFrame) -> PipelineResult:
         process_dt_nanos = time.perf_counter_ns()
-        detector_result = self.fiducial_detector.detect_fiducials(frame)
-        image = cv2.aruco.drawDetectedMarkers(frame.image, detector_result.corners, detector_result.ids)
+        raw_corners, raw_ids, detections = self.fiducial_detector.detect_fiducials(frame)
+        image = cv2.aruco.drawDetectedMarkers(frame.image,
+                                              raw_ids,
+                                              raw_corners)
         pose_result = None
         if self.estimate_poses:
-            if len(detector_result.tag_detections) == 1:
-                pose_result = self.pose_estimator.solve_single_target(detector_result.tag_detections[0])
+            if len(detections) == 1:
+                pose_result = self.pose_estimator.solve_single_target(detections[0])
             else:
-                pose_result = self.pose_estimator.solve_multi_target(detector_result.tag_detections)
+                pose_result = self.pose_estimator.solve_multi_target(detections)
         process_dt_nanos = time.perf_counter_ns() - process_dt_nanos
 
-        return PipelineResult(frame.timestamp_nanos,
+        return PipelineResult(frame.timestamp_ns,
                               process_dt_nanos,
                               image,
-                              detector_result,
+                              detections,
                               pose_result)

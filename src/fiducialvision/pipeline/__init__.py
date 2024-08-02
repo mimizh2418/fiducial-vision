@@ -5,7 +5,6 @@ __all__ = [
     "FiducialDetector",
     "ArUcoFiducialDetector",
     "FiducialTagDetection",
-    "FiducialDetectorResult",
     "PoseEstimator",
     "PoseEstimatorResult",
     "Pipeline",
@@ -18,6 +17,5 @@ from .PoseEstimator import PoseEstimator
 from .Pipeline import Pipeline
 from .pipeline_types import (CaptureFrame,
                              FiducialTagDetection,
-                             FiducialDetectorResult,
                              PoseEstimatorResult,
                              PipelineResult)
