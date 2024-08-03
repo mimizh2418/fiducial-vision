@@ -61,11 +61,14 @@ class Config:
         self.fiducial = FiducialConfig()
 
     def refresh_local(self, network_config_file: str, calibration_file: str):
-        with open(network_config_file, "r") as f:
-            network_data = json.loads(f.read())
-            self.network.device_id = network_data["device_id"]
-            self.network.server_ip = network_data["server_ip"]
-            self.network.stream_port = network_data["stream_port"]
+        try:
+            with open(network_config_file, "r") as f:
+                network_data = json.loads(f.read())
+                self.network.device_id = network_data["device_id"]
+                self.network.server_ip = network_data["server_ip"]
+                self.network.stream_port = network_data["stream_port"]
+        except FileNotFoundError:
+            print(f'Warning: network config file "{network_config_file}" not found', file=sys.stderr)
 
         calib_data = cv2.FileStorage(calibration_file, cv2.FILE_STORAGE_READ)
         intrinsics_mat = calib_data.getNode("camera_matrix").mat()
@@ -73,7 +76,7 @@ class Config:
         calib_data.release()
 
         if type(intrinsics_mat) is not np.ndarray or type(dist_coeffs) is not np.ndarray:
-            print("Warning: no calibration data found", file=sys.stderr)
+            print(f'Warning: no calibration data found in file {calibration_file}', file=sys.stderr)
             self.calibration = None
         else:
             self.calibration.intrinsics_matrix = intrinsics_mat
@@ -123,7 +126,7 @@ class Config:
                     self.fiducial.tag_layout[tag_id] = tag_pose
                 print(f"Successfully loaded tag layout")
             except (json.JSONDecodeError, KeyError, TypeError):
-                print(f'Warning: Invalid tag layout format, pose estimation will not be done', file=sys.stderr)
+                print(f'Warning: Invalid tag layout format', file=sys.stderr)
                 self.fiducial.tag_layout = None
             self._last_layout_update = layout_change
 

@@ -1,10 +1,10 @@
 import logging
 import time
 
-import cv2
 import ntcore
 
 from .config import *
+from .output import NTOutputPublisher, StreamServer
 from .pipeline import *
 
 
@@ -25,9 +25,15 @@ def run_pipeline():
 
     capture = DefaultCapture(config)
     pipeline = Pipeline(config)
+    output = NTOutputPublisher(config)
+    stream = StreamServer(config)
+
+    stream.start()
 
     last_fps_time = time.perf_counter_ns()
+    fps = 0
     frame_count = 0
+    heartbeat = 0
 
     while True:
         config.refresh_nt()
@@ -39,6 +45,7 @@ def run_pipeline():
 
         result = pipeline.process_frame(frame)
 
+        heartbeat += 1
         frame_count += 1
         current_time = time.perf_counter_ns()
         if current_time - last_fps_time > 1e9:
@@ -46,10 +53,5 @@ def run_pipeline():
             last_fps_time = current_time
             frame_count = 0
 
-        if result.pose_estimate is not None:
-            print(result.pose_estimate.pose)
-        cv2.imshow('frame', result.processed_image)
-        if cv2.waitKey(1) == ord('q'):
-            break
-
-    cv2.destroyAllWindows()
+        output.publish(result, fps, heartbeat)
+        stream.set_frame(frame.image)
