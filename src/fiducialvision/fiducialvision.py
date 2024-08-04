@@ -54,4 +54,4 @@ def run_pipeline():
             frame_count = 0
 
         output.publish(result, fps, heartbeat)
-        stream.set_frame(frame.image)
+        stream.set_frame(frame)

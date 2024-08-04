@@ -7,12 +7,17 @@ import cv2
 import numpy as np
 
 from ..config import Config
+from ..pipeline import CaptureFrame
+
+IMAGE_DOWNSCALE_FACTOR = 0.50
 
 
 class StreamServer:
     _config: Config
 
     _frame: cv2.Mat
+    _resolution_width: int
+    _resolution_height: int
     _has_frame: bool = False
 
     def __init__(self, config: Config):
@@ -20,24 +25,24 @@ class StreamServer:
 
     def _make_handler(self_mjpeg):  # type: ignore
         class StreamingHandler(BaseHTTPRequestHandler):
-            HTML = """
+            HTML = f"""
     <!DOCTYPE html>
     <html>
         <head>
             <title>Vision Debug</title>
             <style>
-                body {
+                body {{
                     background-color: black;
-                }
+                }}
 
-                img {
+                img {{
                     position: absolute;
                     left: 50%;
                     top: 50%;
-                    transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%) scale({1.0 / IMAGE_DOWNSCALE_FACTOR});
                     max-width: 100%;
                     max-height: 100%;
-                }
+                }}
             </style>
         </head>
         <body>
@@ -68,7 +73,11 @@ class StreamServer:
                             if not self_mjpeg._has_frame:
                                 time.sleep(0.1)
                             else:
-                                _, enc = cv2.imencode(".jpg", self_mjpeg._frame)
+                                resized_frame = cv2.resize(self_mjpeg._frame,
+                                                           None,
+                                                           fx=IMAGE_DOWNSCALE_FACTOR,
+                                                           fy=IMAGE_DOWNSCALE_FACTOR)
+                                _, enc = cv2.imencode(".jpg", resized_frame)
 
                                 frame_data = np.array(enc).tobytes()
 
@@ -99,6 +108,8 @@ class StreamServer:
             target=self._run, daemon=True, args=(self._config.network.stream_port,)
         ).start()
 
-    def set_frame(self, frame: cv2.Mat) -> None:
-        self._frame = frame.copy()
+    def set_frame(self, frame: CaptureFrame) -> None:
+        self._frame = frame.image
+        self._resolution_height = frame.resolution_height
+        self._resolution_width = frame.resolution_width
         self._has_frame = True
