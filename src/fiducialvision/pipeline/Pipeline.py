@@ -22,10 +22,7 @@ class Pipeline:
                                               raw_corners)
         pose_result = None
         if self.estimate_poses:
-            if len(detections) == 1:
-                pose_result = self.pose_estimator.solve_single_target(detections[0])
-            else:
-                pose_result = self.pose_estimator.solve_multi_target(detections)
+            pose_result = self.pose_estimator.solve_camera_pose(detections)
         process_dt_nanos = time.perf_counter_ns() - process_dt_nanos
 
         return PipelineResult(frame.timestamp_ns,

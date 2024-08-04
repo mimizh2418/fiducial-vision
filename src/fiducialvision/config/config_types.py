@@ -17,7 +17,7 @@ class NetworkConfig:
 @dataclass
 class Calibration:
     intrinsics_matrix: Union[npt.NDArray[np.float64], None] = None
-    distortion_coefficients: Union[npt.NDArray[np.float64], None] = None
+    distortion_coeffs: Union[npt.NDArray[np.float64], None] = None
 
 
 @dataclass

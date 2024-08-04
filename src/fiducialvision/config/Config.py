@@ -80,7 +80,7 @@ class Config:
             self.calibration = None
         else:
             self.calibration.intrinsics_matrix = intrinsics_mat
-            self.calibration.distortion_coefficients = dist_coeffs
+            self.calibration.distortion_coeffs = dist_coeffs
 
     def refresh_nt(self):
         if not self._nt_initialized:

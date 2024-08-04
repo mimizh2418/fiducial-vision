@@ -6,7 +6,7 @@ __all__ = [
     "ArUcoFiducialDetector",
     "FiducialTagDetection",
     "PoseEstimator",
-    "PoseEstimatorResult",
+    "CameraPoseEstimate",
     "Pipeline",
     "PipelineResult"
 ]
@@ -17,5 +17,5 @@ from .PoseEstimator import PoseEstimator
 from .Pipeline import Pipeline
 from .pipeline_types import (CaptureFrame,
                              FiducialTagDetection,
-                             PoseEstimatorResult,
+                             CameraPoseEstimate,
                              PipelineResult)

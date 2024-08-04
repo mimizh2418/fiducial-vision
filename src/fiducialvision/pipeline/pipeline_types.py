@@ -22,7 +22,7 @@ class FiducialTagDetection:
 
 
 @dataclass
-class PoseEstimatorResult:
+class CameraPoseEstimate:
     pose: Pose3d
     reproj_error: float
     pose_alternate: Union[Pose3d, None]
@@ -36,4 +36,4 @@ class PipelineResult:
     processed_image: cv2.Mat
 
     detector_result: Sequence[FiducialTagDetection]
-    pose_estimate: Union[PoseEstimatorResult, None]
+    pose_estimate: Union[CameraPoseEstimate, None]
