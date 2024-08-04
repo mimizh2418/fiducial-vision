@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, Union
+from typing import Dict, Union, Optional
 
 import cv2
 import numpy as np
@@ -16,8 +16,8 @@ class NetworkConfig:
 
 @dataclass
 class Calibration:
-    intrinsics_matrix: Union[npt.NDArray[np.float64], None] = None
-    distortion_coeffs: Union[npt.NDArray[np.float64], None] = None
+    intrinsics_matrix: Optional[npt.NDArray[np.float64]] = None
+    distortion_coeffs: Optional[npt.NDArray[np.float64]] = None
 
 
 @dataclass
@@ -34,5 +34,5 @@ class CameraConfig:
 class FiducialConfig:
     tag_family: int = cv2.aruco.DICT_APRILTAG_36h11
     tag_size_m: float = 0.1651
-    tag_layout: Union[Dict[int, Pose3d], None] = None
+    tag_layout: Optional[Dict[int, Pose3d]] = None
 

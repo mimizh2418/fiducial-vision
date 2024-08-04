@@ -1,5 +1,5 @@
 import sys
-from typing import Sequence, List, Union
+from typing import Sequence, List, Optional
 
 import cv2
 import numpy as np
@@ -17,7 +17,7 @@ class PoseEstimator:
     def __init__(self, config: Config):
         self.config = config
 
-    def solve_camera_pose(self, visible_tags: Sequence[FiducialTagDetection]) -> Union[CameraPoseEstimate, None]:
+    def solve_camera_pose(self, visible_tags: Sequence[FiducialTagDetection]) -> Optional[CameraPoseEstimate]:
         if (not self.config.has_tag_layout()
                 or not self.config.has_calibration()
                 or len(self.config.fiducial.tag_layout) == 0
