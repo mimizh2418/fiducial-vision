@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Union, Sequence
+from typing import Union, Sequence, Optional
 
 import cv2
 import numpy as np
@@ -25,8 +25,8 @@ class FiducialTagDetection:
 class CameraPoseEstimate:
     pose: Pose3d
     reproj_error: float
-    pose_alternate: Union[Pose3d, None]
-    reproj_error_alternate: Union[float, None]
+    pose_alternate: Optional[Pose3d]
+    reproj_error_alternate: Optional[float]
 
 
 @dataclass(frozen=True)
@@ -36,4 +36,4 @@ class PipelineResult:
     processed_image: cv2.Mat
 
     detector_result: Sequence[FiducialTagDetection]
-    pose_estimate: Union[CameraPoseEstimate, None]
+    pose_estimate: Optional[CameraPoseEstimate]
