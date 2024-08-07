@@ -8,8 +8,8 @@ from .output import NTOutputPublisher, StreamServer
 from .pipeline import DefaultCapture, Pipeline
 
 
-NETWORK_CONFIG_FILE = 'network_config.json'
-CALIBRATION_FILE = 'calibration.json'
+NETWORK_CONFIG_FILE = 'config/network_config.json'
+CALIBRATION_FILE = 'config/calibration.json'
 
 
 def run_pipeline():
