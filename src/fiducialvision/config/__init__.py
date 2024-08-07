@@ -1,8 +1,8 @@
 __all__ = [
-    'Config',
-    'Calibration',
-    'CameraConfig',
-    'FiducialConfig',
+    "Config",
+    "Calibration",
+    "CameraConfig",
+    "FiducialConfig",
 ]
 
 from .Config import Calibration, CameraConfig, FiducialConfig, Config

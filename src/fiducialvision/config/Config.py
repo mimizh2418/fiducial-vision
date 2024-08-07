@@ -12,27 +12,27 @@ from .config_types import NetworkConfig, CameraConfig, Calibration, FiducialConf
 
 class Config:
     fiducial_families = {
-        'aruco_4x4_50': cv2.aruco.DICT_4X4_50,
-        'aruco_4x4_100': cv2.aruco.DICT_4X4_100,
-        'aruco_4x4_250': cv2.aruco.DICT_4X4_250,
-        'aruco_4x4_1000': cv2.aruco.DICT_4X4_1000,
-        'aruco_5x5_50': cv2.aruco.DICT_5X5_50,
-        'aruco_5x5_100': cv2.aruco.DICT_5X5_100,
-        'aruco_5x5_250': cv2.aruco.DICT_5X5_250,
-        'aruco_5x5_1000': cv2.aruco.DICT_5X5_1000,
-        'aruco_6x6_50': cv2.aruco.DICT_6X6_50,
-        'aruco_6x6_100': cv2.aruco.DICT_6X6_100,
-        'aruco_6x6_250': cv2.aruco.DICT_6X6_250,
-        'aruco_6x6_1000': cv2.aruco.DICT_6X6_1000,
-        'aruco_7x7_50': cv2.aruco.DICT_7X7_50,
-        'aruco_7x7_100': cv2.aruco.DICT_7X7_100,
-        'aruco_7x7_250': cv2.aruco.DICT_7X7_250,
-        'aruco_7x7_1000': cv2.aruco.DICT_7X7_1000,
-        'apriltag_16h5': cv2.aruco.DICT_APRILTAG_16h5,
-        'apriltag_25h9': cv2.aruco.DICT_APRILTAG_25h9,
-        'apriltag_36h10': cv2.aruco.DICT_APRILTAG_36h10,
-        'apriltag_36h11': cv2.aruco.DICT_APRILTAG_36h11,
-        'aruco_mip_36h12': cv2.aruco.DICT_ARUCO_MIP_36h12
+        "aruco_4x4_50": cv2.aruco.DICT_4X4_50,
+        "aruco_4x4_100": cv2.aruco.DICT_4X4_100,
+        "aruco_4x4_250": cv2.aruco.DICT_4X4_250,
+        "aruco_4x4_1000": cv2.aruco.DICT_4X4_1000,
+        "aruco_5x5_50": cv2.aruco.DICT_5X5_50,
+        "aruco_5x5_100": cv2.aruco.DICT_5X5_100,
+        "aruco_5x5_250": cv2.aruco.DICT_5X5_250,
+        "aruco_5x5_1000": cv2.aruco.DICT_5X5_1000,
+        "aruco_6x6_50": cv2.aruco.DICT_6X6_50,
+        "aruco_6x6_100": cv2.aruco.DICT_6X6_100,
+        "aruco_6x6_250": cv2.aruco.DICT_6X6_250,
+        "aruco_6x6_1000": cv2.aruco.DICT_6X6_1000,
+        "aruco_7x7_50": cv2.aruco.DICT_7X7_50,
+        "aruco_7x7_100": cv2.aruco.DICT_7X7_100,
+        "aruco_7x7_250": cv2.aruco.DICT_7X7_250,
+        "aruco_7x7_1000": cv2.aruco.DICT_7X7_1000,
+        "apriltag_16h5": cv2.aruco.DICT_APRILTAG_16h5,
+        "apriltag_25h9": cv2.aruco.DICT_APRILTAG_25h9,
+        "apriltag_36h10": cv2.aruco.DICT_APRILTAG_36h10,
+        "apriltag_36h11": cv2.aruco.DICT_APRILTAG_36h11,
+        "aruco_mip_36h12": cv2.aruco.DICT_ARUCO_MIP_36h12
     }
 
     network: NetworkConfig
@@ -76,7 +76,7 @@ class Config:
         calib_data.release()
 
         if type(intrinsics_mat) is not np.ndarray or type(dist_coeffs) is not np.ndarray:
-            print(f'Warning: no calibration data found in file {calibration_file}', file=sys.stderr)
+            print(f"Warning: no calibration data found in file {calibration_file}", file=sys.stderr)
             self.calibration = None
         else:
             self.calibration.intrinsics_matrix = intrinsics_mat
@@ -104,7 +104,7 @@ class Config:
             tag_family = self._tag_family_entry.get()
             if tag_family in self.fiducial_families:
                 self.fiducial.tag_family = self.fiducial_families[tag_family]
-                print(f'Set tag family to {tag_family}')
+                print(f"Set tag family to {tag_family}")
             else:
                 print(f'Warning: Unknown tag family "{tag_family}", defaulting to apriltag_36h11', file=sys.stderr)
                 self.fiducial.tag_family = cv2.aruco.DICT_APRILTAG_36h11
@@ -126,7 +126,7 @@ class Config:
                     self.fiducial.tag_layout[tag_id] = tag_pose
                 print(f"Successfully loaded tag layout")
             except (json.JSONDecodeError, KeyError, TypeError):
-                print(f'Warning: Invalid tag layout format', file=sys.stderr)
+                print(f"Warning: Invalid tag layout format", file=sys.stderr)
                 self.fiducial.tag_layout = None
             self._last_layout_update = layout_change
 

@@ -1,6 +1,6 @@
 import numpy as np
 import numpy.typing as npt
-from wpimath.geometry import Pose3d, Rotation3d, Translation3d
+from wpimath.geometry import Rotation3d, Translation3d
 
 
 def to_opencv_translation(translation: Translation3d) -> npt.NDArray[np.float64]:

@@ -1,6 +1,6 @@
 __all__ = [
-    'NTOutputPublisher',
-    'StreamServer'
+    "NTOutputPublisher",
+    "StreamServer"
 ]
 
 from .NTOutputPublisher import NTOutputPublisher

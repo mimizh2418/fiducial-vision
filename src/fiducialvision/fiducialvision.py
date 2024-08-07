@@ -3,9 +3,9 @@ import time
 
 import ntcore
 
-from .config import *
+from .config import Config
 from .output import NTOutputPublisher, StreamServer
-from .pipeline import *
+from .pipeline import DefaultCapture, Pipeline
 
 
 NETWORK_CONFIG_FILE = 'network_config.json'
