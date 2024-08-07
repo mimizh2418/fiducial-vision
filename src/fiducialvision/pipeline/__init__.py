@@ -7,6 +7,7 @@ __all__ = [
     "FiducialTagDetection",
     "PoseEstimator",
     "CameraPoseEstimate",
+    "TrackedTarget",
     "Pipeline",
     "PipelineResult"
 ]
@@ -18,4 +19,5 @@ from .Pipeline import Pipeline
 from .pipeline_types import (CaptureFrame,
                              FiducialTagDetection,
                              CameraPoseEstimate,
-                             PipelineResult)
+                             PipelineResult,
+                             TrackedTarget)
