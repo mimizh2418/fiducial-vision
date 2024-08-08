@@ -1,3 +1,4 @@
+from abc import abstractmethod, ABC
 from typing import Sequence
 
 import cv2
@@ -8,7 +9,8 @@ from ..config import Config
 from .pipeline_types import FiducialTagDetection, CaptureFrame
 
 
-class FiducialDetector:
+class FiducialDetector(ABC):
+    @abstractmethod
     def detect_fiducials(self, frame: CaptureFrame) -> tuple[npt.NDArray[np.int32],
                                                              Sequence[npt.NDArray[np.float64]],
                                                              Sequence[FiducialTagDetection]]:

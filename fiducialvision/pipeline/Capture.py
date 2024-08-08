@@ -1,5 +1,6 @@
 import dataclasses
 import time
+from abc import ABC, abstractmethod
 from typing import Tuple
 
 import cv2
@@ -8,7 +9,8 @@ from ..config import CameraConfig, Config
 from .pipeline_types import CaptureFrame
 
 
-class Capture:
+class Capture(ABC):
+    @abstractmethod
     def get_frame(self) -> Tuple[bool, CaptureFrame]:
         raise NotImplementedError
 
