@@ -1,5 +1,4 @@
 import logging
-import sys
 from typing import Sequence, Optional
 
 import cv2

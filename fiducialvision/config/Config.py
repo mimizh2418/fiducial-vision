@@ -1,6 +1,5 @@
 import json
 import logging
-import sys
 from typing import Union
 
 import cv2.aruco
