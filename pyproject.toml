@@ -7,7 +7,7 @@ license = "MIT"
 authors = [
     "Alvin Zhang <41vin2h4n9@gmail.com>"
 ]
-repository = "https://github.com/mimizh2418/fiducial-vision"
+repository = "https://github.com/mimizh2418/orion"
 
 
 [tool.poetry.dependencies]
