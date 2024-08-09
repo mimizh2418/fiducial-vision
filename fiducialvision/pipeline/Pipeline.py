@@ -1,3 +1,4 @@
+import logging
 import time
 
 import cv2
@@ -6,6 +7,8 @@ from . import PoseEstimator
 from .FiducialDetector import ArUcoFiducialDetector, FiducialDetector
 from .pipeline_types import CaptureFrame, PipelineResult
 from ..config import Config
+
+logger = logging.getLogger(__name__)
 
 
 class Pipeline:
@@ -17,6 +20,10 @@ class Pipeline:
         self._config = config
         self._fiducial_detector = ArUcoFiducialDetector(config)
         self._pose_estimator = PoseEstimator(config)
+        if not self._config.has_calibration():
+            logger.warning("No calibration provided, tag transforms will not be calculated")
+        if not self._config.has_tag_layout():
+            logger.warning("No tag layout provided, pose estimation will not be performed")
 
     def process_frame(self, frame: CaptureFrame) -> PipelineResult:
         process_dt_nanos = time.perf_counter_ns()

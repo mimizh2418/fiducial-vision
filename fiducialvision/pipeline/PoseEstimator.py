@@ -1,3 +1,4 @@
+import logging
 import sys
 from typing import Sequence, Optional
 
@@ -9,6 +10,8 @@ from wpimath.geometry import Pose3d, Rotation3d, Transform3d
 from ..config import Config
 from ..coordinate_util import to_opencv_translation, from_opencv_translation, from_opencv_rotation
 from .pipeline_types import FiducialTagDetection, CameraPoseEstimate, TrackedTarget
+
+logger = logging.getLogger(__name__)
 
 
 class PoseEstimator:
@@ -40,7 +43,7 @@ class PoseEstimator:
                                                                           self.config.calibration.distortion_coeffs,
                                                                           flags=cv2.SOLVEPNP_IPPE_SQUARE)
             except cv2.error as e:
-                print(f"Error in SOLVEPNP_IPPE_SQUARE, no solution will be returned: {e}", file=sys.stderr)
+                logger.error(f"Error in SOLVEPNP_IPPE_SQUARE, no solution will be returned: {e}")
                 return None, []
 
             tag_pose = self.config.fiducial.tag_layout[observed_tags[0].id]
@@ -79,7 +82,7 @@ class PoseEstimator:
                                                                           self.config.calibration.distortion_coeffs,
                                                                           flags=cv2.SOLVEPNP_SQPNP)
             except cv2.error as e:
-                print(f"Error in SOLVEPNP_SQPNP, no solution will be returned: {e}", file=sys.stderr)
+                logger.error(f"Error in SOLVEPNP_SQPNP, no solution will be returned: {e}")
                 return None, []
 
             camera_pose = Pose3d().transformBy(Transform3d(from_opencv_translation(tvecs[0]),
@@ -104,7 +107,7 @@ class PoseEstimator:
                                                                           self.config.calibration.distortion_coeffs,
                                                                           flags=cv2.SOLVEPNP_IPPE_SQUARE)
             except cv2.error as e:
-                print(f"Error in SOLVEPNP_IPPE_SQUARE, could not compute pose for tag {tag.id}: {e}", file=sys.stderr)
+                logger.error(f"Error in SOLVEPNP_IPPE_SQUARE, could not compute pose for tag {tag.id}: {e}")
                 continue
             tracked_targets.append(TrackedTarget(tag.id,
                                                  Transform3d(from_opencv_translation(tvecs[0]),

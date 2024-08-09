@@ -7,6 +7,7 @@ from .config import Config
 from .output import NTOutputPublisher, StreamServer
 from .pipeline import DefaultCapture, Pipeline
 
+logger = logging.getLogger(__name__)
 
 NETWORK_CONFIG_FILE = 'config/network_config.json'
 CALIBRATION_FILE = 'config/calibration.json'
@@ -18,6 +19,8 @@ def run_pipeline():
     config = Config()
     config.refresh_local(NETWORK_CONFIG_FILE, CALIBRATION_FILE)
 
+    logger.info(
+        f"Starting NT client for device {config.network.device_id}, server is set to {config.network.server_ip}")
     ntcore.NetworkTableInstance.getDefault().startClient4(config.network.device_id)
     ntcore.NetworkTableInstance.getDefault().setServer(config.network.server_ip)
 
@@ -35,6 +38,7 @@ def run_pipeline():
     frame_count = 0
     heartbeat = 0
 
+    logger.info("Starting pipeline")
     while True:
         config.refresh_nt()
 

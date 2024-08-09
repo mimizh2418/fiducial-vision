@@ -1,3 +1,4 @@
+import logging
 import socketserver
 import threading
 import time
@@ -8,6 +9,8 @@ import numpy as np
 
 from ..config import Config
 from ..pipeline import CaptureFrame
+
+logger = logging.getLogger(__name__)
 
 IMAGE_DOWNSCALE_FACTOR = 0.50
 
@@ -88,7 +91,7 @@ class StreamServer:
                                 self.wfile.write(frame_data)
                                 self.wfile.write(b"\r\n")
                     except Exception as e:
-                        print(f"Removed streaming client {self.client_address}: {str(e)}")
+                        logger.info(f"Removed streaming client {self.client_address}: {str(e)}")
                 else:
                     self.send_error(404)
                     self.end_headers()
@@ -104,6 +107,7 @@ class StreamServer:
         server.serve_forever()
 
     def start(self) -> None:
+        logger.info("Starting stream server")
         threading.Thread(
             target=self._run, daemon=True, args=(self._config.network.stream_port,)
         ).start()

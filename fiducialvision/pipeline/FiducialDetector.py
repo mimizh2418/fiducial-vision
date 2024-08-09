@@ -14,7 +14,7 @@ class FiducialDetector(ABC):
     def detect_fiducials(self, frame: CaptureFrame) -> tuple[npt.NDArray[np.int32],
                                                              Sequence[npt.NDArray[np.float64]],
                                                              Sequence[FiducialTagDetection]]:
-        raise NotImplementedError
+        pass
 
 
 class ArUcoFiducialDetector(FiducialDetector):

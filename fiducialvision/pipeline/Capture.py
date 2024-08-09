@@ -1,4 +1,5 @@
 import dataclasses
+import logging
 import time
 from abc import ABC, abstractmethod
 from typing import Tuple
@@ -8,11 +9,13 @@ import cv2
 from ..config import CameraConfig, Config
 from .pipeline_types import CaptureFrame
 
+logger = logging.getLogger(__name__)
+
 
 class Capture(ABC):
     @abstractmethod
     def get_frame(self) -> Tuple[bool, CaptureFrame]:
-        raise NotImplementedError
+        pass
 
 
 class DefaultCapture(Capture):
@@ -32,8 +35,8 @@ class DefaultCapture(Capture):
 
     def get_frame(self) -> Tuple[bool, CaptureFrame]:
         if self._last_config != self._config:
-            if self._last_config.id != self._config.id:
-                self._video.open(self._config.id)
+            logger.debug("Camera configuration changed, reapplying settings")
+            self._video.open(self._config.id)
             self._video.set(cv2.CAP_PROP_FRAME_WIDTH, self._config.resolution_width)
             self._video.set(cv2.CAP_PROP_FRAME_HEIGHT, self._config.resolution_height)
             self._video.set(cv2.CAP_PROP_AUTO_EXPOSURE, self._config.auto_exposure)
