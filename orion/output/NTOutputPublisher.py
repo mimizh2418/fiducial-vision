@@ -46,7 +46,7 @@ class NTOutputPublisher:
 
     def _init_nt(self):
         logger.info("Initializing NT output publisher")
-        table = ntcore.NetworkTableInstance.getDefault().getTable(f"vision/{self._config.network.device_id}/output")
+        table = ntcore.NetworkTableInstance.getDefault().getTable(f"orion/{self._config.network.device_id}/output")
         pubsub_options = ntcore.PubSubOptions(periodic=0, sendAll=True, keepDuplicates=True)
         self._timestamp_pub = table.getDoubleTopic("timestamp_ns").publish(pubsub_options)
         self._fps_pub = table.getDoubleTopic("fps").publish(pubsub_options)

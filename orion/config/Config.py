@@ -136,7 +136,7 @@ class Config:
     def _init_nt(self):
         logger.info("Initializing NetworkTables config...")
 
-        table = ntcore.NetworkTableInstance.getDefault().getTable(f"/vision/{self.network.device_id}/config")
+        table = ntcore.NetworkTableInstance.getDefault().getTable(f"/orion/{self.network.device_id}/config")
 
         self._camera_id_entry = table.getStringTopic("camera_id").getEntry(str(self.camera.id))
         self._camera_resolution_w_entry = (

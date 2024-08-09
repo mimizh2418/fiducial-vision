@@ -32,7 +32,7 @@ class StreamServer:
     <!DOCTYPE html>
     <html>
         <head>
-            <title>Vision Debug</title>
+            <title>Orion Debug</title>
             <style>
                 body {{
                     background-color: black;

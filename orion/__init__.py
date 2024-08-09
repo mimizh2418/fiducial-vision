@@ -5,4 +5,4 @@ __all__ = [
     "run_pipeline"
 ]
 
-from .fiducialvision import run_pipeline
+from .orion import run_pipeline

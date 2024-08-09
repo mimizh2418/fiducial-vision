@@ -1,6 +1,6 @@
 [tool.poetry]
 package-mode = true
-name = "fiducialvision"
+name = "orion"
 version = "0.0.1"
 description = "Fiducial marker detection and pose estimation system"
 license = "MIT"
@@ -19,7 +19,7 @@ pyntcore = "^2024.3.2.1"
 
 
 [tool.poetry.scripts]
-run-pipeline = "fiducialvision.fiducialvision:run_pipeline"
+run-pipeline = "orion.orion:run_pipeline"
 
 
 [build-system]
