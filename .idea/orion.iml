@@ -8,4 +8,7 @@
     <orderEntry type="jdk" jdkName="Poetry (fiducial-vision-system)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PackageRequirementsSettings">
+    <option name="requirementsPath" value="pyproject.toml" />
+  </component>
 </module>
