@@ -100,6 +100,35 @@ robotpy-wpinet = "2024.3.2.1"
 robotpy-wpiutil = "2024.3.2.1"
 
 [[package]]
+name = "pyntcore"
+version = "2024.3.2.1"
+description = "Binary wrappers for the FRC ntcore library"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "pyntcore-2024.3.2.1-cp310-cp310-linux_aarch64.whl", hash = "sha256:dc5d0467de0b4464a14eb30d00d4a7399749b47aa8d275f0e3e8da16b5a1718d"},
+    {file = "pyntcore-2024.3.2.1-cp310-cp310-linux_armv7l.whl", hash = "sha256:dfeb1d4ff67d2243c675307514c8eeec539d0008906a369d24866743fd298d25"},
+    {file = "pyntcore-2024.3.2.1-cp311-cp311-linux_aarch64.whl", hash = "sha256:99a0bf5222e316f34e4d70ae2a3d25d62b764798846e7fa9e0dd9bc4f17e6861"},
+    {file = "pyntcore-2024.3.2.1-cp311-cp311-linux_armv7l.whl", hash = "sha256:780931aa90794ca19656d8a08ec1defaf62a07aa62956f18a34a636aca4b7d6e"},
+    {file = "pyntcore-2024.3.2.1-cp312-cp312-linux_aarch64.whl", hash = "sha256:5a79b818676b01ed9fd7d4cd925f322bb9f66347529f0c7d40c878a4abbde41c"},
+    {file = "pyntcore-2024.3.2.1-cp312-cp312-linux_armv7l.whl", hash = "sha256:7482045b995e626b2816bbf95f67189850263c4e1f078ebbbddb3c888f955f20"},
+    {file = "pyntcore-2024.3.2.1-cp312-cp312-linux_roborio.whl", hash = "sha256:8b6e7a51a48d95ac63a7677755b7b299e0b551f23d6d4f8b78b9316a62a7ac0d"},
+    {file = "pyntcore-2024.3.2.1-cp38-cp38-linux_aarch64.whl", hash = "sha256:a3c50ec55b30e148f772ae928a773dfcba2e7d0e21debbe18139cd9aa8ecf969"},
+    {file = "pyntcore-2024.3.2.1-cp38-cp38-linux_armv7l.whl", hash = "sha256:0f5df81b3fd87279b34493beafe45228547a2fa05181c08e54cfc1f10fcd31c0"},
+    {file = "pyntcore-2024.3.2.1-cp39-cp39-linux_aarch64.whl", hash = "sha256:d11c18c3c8f8441ede1377f805c7293c48e0a3ee6c5e65a795a70f37b673d511"},
+    {file = "pyntcore-2024.3.2.1-cp39-cp39-linux_armv7l.whl", hash = "sha256:a2086a057dbedb79608d93fcf8e316ab0ad0b3db8494b5c15706d5b429a10459"},
+]
+
+[package.dependencies]
+robotpy-wpinet = "2024.3.2.1"
+robotpy-wpiutil = "2024.3.2.1"
+
+[package.source]
+type = "legacy"
+url = "https://wpilib.jfrog.io/artifactory/api/pypi/wpilib-python-release-2024/simple"
+reference = "wpilib-artifactory"
+
+[[package]]
 name = "robotpy-wpimath"
 version = "2024.3.2.1"
 description = "Binary wrapper for FRC WPIMath library"
@@ -125,6 +154,34 @@ files = [
 
 [package.dependencies]
 robotpy-wpiutil = "2024.3.2.1"
+
+[[package]]
+name = "robotpy-wpimath"
+version = "2024.3.2.1"
+description = "Binary wrapper for FRC WPIMath library"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "robotpy_wpimath-2024.3.2.1-cp310-cp310-linux_aarch64.whl", hash = "sha256:dcc5f7b1b600665b3cda925b26c3ff50407bdb1df0ee232e448d781af2d5867a"},
+    {file = "robotpy_wpimath-2024.3.2.1-cp310-cp310-linux_armv7l.whl", hash = "sha256:3194bac09bd12037429f1a0dc0a8cf5480643c84bf343e4ebf081336a7762e14"},
+    {file = "robotpy_wpimath-2024.3.2.1-cp311-cp311-linux_aarch64.whl", hash = "sha256:b03eab847b7e97ddc10bcf2c1a3e5985cbe54dbc6cea71acb70d75444348bff6"},
+    {file = "robotpy_wpimath-2024.3.2.1-cp311-cp311-linux_armv7l.whl", hash = "sha256:4e955aa910971c3c753cec3d63e180ac8cda4e3042c5f146343bcea05ae2ce3b"},
+    {file = "robotpy_wpimath-2024.3.2.1-cp312-cp312-linux_aarch64.whl", hash = "sha256:7ad9f138bf9e6f327af206195f087c0bf6fd0df16d10e38bcb603a1915370621"},
+    {file = "robotpy_wpimath-2024.3.2.1-cp312-cp312-linux_armv7l.whl", hash = "sha256:651ef200310bcc3096db70ca4e981ace133b21fe93fad7e22e0419e8fa0536f5"},
+    {file = "robotpy_wpimath-2024.3.2.1-cp312-cp312-linux_roborio.whl", hash = "sha256:8fc97d90bd7594093e9936369730afe9df5b4af4b5f23ae0daeefe47503f0dc5"},
+    {file = "robotpy_wpimath-2024.3.2.1-cp38-cp38-linux_aarch64.whl", hash = "sha256:07ba361fa322b93ae165877525f6b9124b1798613852ea49a851d9f5dd0c4474"},
+    {file = "robotpy_wpimath-2024.3.2.1-cp38-cp38-linux_armv7l.whl", hash = "sha256:d963080eb53b83a105534cc83527f68ed05d1248f526e9f8ed8c65f6520f8a49"},
+    {file = "robotpy_wpimath-2024.3.2.1-cp39-cp39-linux_aarch64.whl", hash = "sha256:0ec3371973b56e75ee194141fe446a5a7e095d0920b27b0fb587572fa4de8405"},
+    {file = "robotpy_wpimath-2024.3.2.1-cp39-cp39-linux_armv7l.whl", hash = "sha256:b72bf852436e970be502a7c545f5af90043a6a4090451afa357cb95e53bc5c87"},
+]
+
+[package.dependencies]
+robotpy-wpiutil = "2024.3.2.1"
+
+[package.source]
+type = "legacy"
+url = "https://wpilib.jfrog.io/artifactory/api/pypi/wpilib-python-release-2024/simple"
+reference = "wpilib-artifactory"
 
 [[package]]
 name = "robotpy-wpinet"
@@ -154,6 +211,34 @@ files = [
 robotpy-wpiutil = "2024.3.2.1"
 
 [[package]]
+name = "robotpy-wpinet"
+version = "2024.3.2.1"
+description = "Binary wrapper for FRC wpinet library"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "robotpy_wpinet-2024.3.2.1-cp310-cp310-linux_aarch64.whl", hash = "sha256:e0dc0a21f3040b5df6ecb7c5b729e75dbe413bc299707cf2ae9a33dc4c88873e"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp310-cp310-linux_armv7l.whl", hash = "sha256:991325707453b266a5c9757c686fa9be56c2aebd7e88155ea94d6bbc6d059fe3"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp311-cp311-linux_aarch64.whl", hash = "sha256:2b3b1767a501b5302c16288a458706da5ac0fe30b21b5af002b2c552cb65f095"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp311-cp311-linux_armv7l.whl", hash = "sha256:f24dccb3c12b6750ff7c6f5ed64ab2231cbaaec779367c06fa764f46e1ad5330"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp312-cp312-linux_aarch64.whl", hash = "sha256:2f442a40928478a97760fa12678fb7ece3c183d46e32593b5382bc78371ae928"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp312-cp312-linux_armv7l.whl", hash = "sha256:c53022e0faa944e6893aa274fbbfdd2f8ea54130ce1757d4222038bb76e8478e"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp312-cp312-linux_roborio.whl", hash = "sha256:8f9e37c843ce10844e6c43a2419b1f2f3564903613afb026326db2cceadfbf82"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp38-cp38-linux_aarch64.whl", hash = "sha256:3aa19fe6e36f42458919a9c00bf30fc6ed4dd413c309c648b662a299fe0529cd"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp38-cp38-linux_armv7l.whl", hash = "sha256:5a4399ee106e8c8fb2bb7ffc8d788714759f71950896d049ac4a6dc5e1664496"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp39-cp39-linux_aarch64.whl", hash = "sha256:5dd9c742b8efd1809e6a9c210550f198feea846549fcc20f95a1b55fb28f22c9"},
+    {file = "robotpy_wpinet-2024.3.2.1-cp39-cp39-linux_armv7l.whl", hash = "sha256:a3ec749bc19fcff018f139acb74bb1a6130c7398f0e1103f0930f8b51c74cf4d"},
+]
+
+[package.dependencies]
+robotpy-wpiutil = "2024.3.2.1"
+
+[package.source]
+type = "legacy"
+url = "https://wpilib.jfrog.io/artifactory/api/pypi/wpilib-python-release-2024/simple"
+reference = "wpilib-artifactory"
+
+[[package]]
 name = "robotpy-wpiutil"
 version = "2024.3.2.1"
 description = "Binary wrapper for FRC WPIUtil library"
@@ -177,7 +262,32 @@ files = [
     {file = "robotpy_wpiutil-2024.3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:f8a41eaaca936e789b54e184eb700a70cf69dd301ddc79081507e6a3c9ef9037"},
 ]
 
+[[package]]
+name = "robotpy-wpiutil"
+version = "2024.3.2.1"
+description = "Binary wrapper for FRC WPIUtil library"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "robotpy_wpiutil-2024.3.2.1-cp310-cp310-linux_aarch64.whl", hash = "sha256:4099d7275620ebfcc3629729829bb79b85e377b35fd06fb46e3edfbec14747a4"},
+    {file = "robotpy_wpiutil-2024.3.2.1-cp310-cp310-linux_armv7l.whl", hash = "sha256:a9bc7410a4046ffc481a1f57d06a4ed73956056c1ec13aeeb8383d0d352046c6"},
+    {file = "robotpy_wpiutil-2024.3.2.1-cp311-cp311-linux_aarch64.whl", hash = "sha256:7375649293fbb83d81dd039b69274c0ed0e4c8a898028196fadc862aece3fb50"},
+    {file = "robotpy_wpiutil-2024.3.2.1-cp311-cp311-linux_armv7l.whl", hash = "sha256:c7eef2ac855f08154368f32f855978936c6a4376dd4d8f8f1c7cfbd21895f77e"},
+    {file = "robotpy_wpiutil-2024.3.2.1-cp312-cp312-linux_aarch64.whl", hash = "sha256:3fd94e15b8fc8f70d33d1fe4e6e8ca6496d0c50e374edb83ae8d79ccbada7568"},
+    {file = "robotpy_wpiutil-2024.3.2.1-cp312-cp312-linux_armv7l.whl", hash = "sha256:ed5761137e1b776b2fc0f747a2c4192612a534fc7ba59631887ae7b0b6df8ba5"},
+    {file = "robotpy_wpiutil-2024.3.2.1-cp312-cp312-linux_roborio.whl", hash = "sha256:378de8fd0545ea733503f81a2691ba2d52429f0d134356c7c4f19a2416d8a064"},
+    {file = "robotpy_wpiutil-2024.3.2.1-cp38-cp38-linux_aarch64.whl", hash = "sha256:77d0026cbdf8fa60d3d04ce63f2a04587f926a2bc2182b216b560d8760bc0b1a"},
+    {file = "robotpy_wpiutil-2024.3.2.1-cp38-cp38-linux_armv7l.whl", hash = "sha256:ea7a439bf6a5b1d51cc6727f214f6e02aaedc8cc8580da8498de6f88cf03489a"},
+    {file = "robotpy_wpiutil-2024.3.2.1-cp39-cp39-linux_aarch64.whl", hash = "sha256:ef1f224d10b60c3cea1d42e6dd24879f858f1bd2c9382fcad7bf208badeb7d45"},
+    {file = "robotpy_wpiutil-2024.3.2.1-cp39-cp39-linux_armv7l.whl", hash = "sha256:83740e94fe77530f4bfaff95bb8c6007d47fca3746f3dc32bb9378260b319156"},
+]
+
+[package.source]
+type = "legacy"
+url = "https://wpilib.jfrog.io/artifactory/api/pypi/wpilib-python-release-2024/simple"
+reference = "wpilib-artifactory"
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "d0c88d8724782767c75e102351e8365437bb9896f123e0a22f21e4b6aa4ef64f"
+content-hash = "1d9025a5cbd294464523201bada63069949a0fc9b044d3265054731a40df86ad"
