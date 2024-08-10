@@ -43,6 +43,8 @@ class NTOutputPublisher:
             self._pose_estimate_pub.set(result.pose_estimate)
         if len(result.tracked_targets) > 0:
             self._tracked_targets_pub.set(result.tracked_targets)
+        else:
+            self._tracked_targets_pub.set([])
 
     def _init_nt(self):
         logger.info("Initializing NT output publisher")
