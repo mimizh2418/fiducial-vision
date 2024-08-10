@@ -29,6 +29,7 @@ class DefaultCapture(Capture):
 
     def __init__(self, config: Config):
         self._config = config.camera
+        self._last_config = dataclasses.replace(self._config)
         self._video = cv2.VideoCapture(self._config.id)
         self._update_config()
 
@@ -45,7 +46,8 @@ class DefaultCapture(Capture):
                                  self._config.resolution_width)
 
     def _update_config(self):
-        self._video.open(self._config.id)
+        if self._last_config.id != self._config.id:
+            self._video.open(self._config.id)
         self._video.set(cv2.CAP_PROP_FRAME_WIDTH, self._config.resolution_width)
         self._video.set(cv2.CAP_PROP_FRAME_HEIGHT, self._config.resolution_height)
         self._video.set(cv2.CAP_PROP_AUTO_EXPOSURE, self._config.auto_exposure)
