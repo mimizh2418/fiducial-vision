@@ -4,9 +4,7 @@ import time
 from abc import ABC, abstractmethod
 from typing import Tuple
 
-import cscore
 import cv2
-import numpy as np
 
 from ..config import CameraConfig, Config
 from .pipeline_types import CaptureFrame
