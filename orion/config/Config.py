@@ -48,6 +48,7 @@ class Config:
     _camera_resolution_h_entry: ntcore.IntegerEntry
     _camera_auto_exposure_entry: ntcore.DoubleEntry
     _camera_exposure_entry: ntcore.DoubleEntry
+    _camera_brightness_entry: ntcore.DoubleEntry
     _camera_gain_entry: ntcore.DoubleEntry
     _tag_family_entry: ntcore.StringEntry
     _tag_size_entry: ntcore.DoubleEntry
@@ -99,6 +100,7 @@ class Config:
         self.camera.resolution_height = self._camera_resolution_h_entry.get()
         self.camera.auto_exposure = self._camera_auto_exposure_entry.get()
         self.camera.exposure = self._camera_exposure_entry.get()
+        self.camera.brightness = self._camera_brightness_entry.get()
         self.camera.gain = self._camera_gain_entry.get()
 
         self.fiducial.tag_size_m = self._tag_size_entry.get()
@@ -146,6 +148,7 @@ class Config:
         self._camera_auto_exposure_entry = (
             table.getDoubleTopic("camera_auto_exposure").getEntry(self.camera.auto_exposure))
         self._camera_exposure_entry = table.getDoubleTopic("camera_exposure").getEntry(self.camera.exposure)
+        self._camera_brightness_entry = table.getDoubleTopic("camera_brightness").getEntry(self.camera.brightness)
         self._camera_gain_entry = table.getDoubleTopic("camera_gain").getEntry(self.camera.gain)
         self._tag_family_entry = table.getStringTopic("tag_family").getEntry("apriltag_36h11")
         self._tag_size_entry = table.getDoubleTopic("tag_size_m").getEntry(self.fiducial.tag_size_m)
@@ -156,6 +159,7 @@ class Config:
         self._camera_resolution_h_entry.setDefault(self.camera.resolution_height)
         self._camera_auto_exposure_entry.setDefault(self.camera.auto_exposure)
         self._camera_exposure_entry.setDefault(self.camera.exposure)
+        self._camera_brightness_entry.setDefault(self.camera.brightness)
         self._camera_gain_entry.setDefault(self.camera.gain)
         self._tag_family_entry.setDefault("apriltag_36h11")
         self._tag_size_entry.setDefault(self.fiducial.tag_size_m)
@@ -166,6 +170,7 @@ class Config:
         self._camera_resolution_h_entry.getTopic().setRetained(True)
         self._camera_auto_exposure_entry.getTopic().setRetained(True)
         self._camera_exposure_entry.getTopic().setRetained(True)
+        self._camera_brightness_entry.getTopic().setRetained(True)
         self._camera_gain_entry.getTopic().setRetained(True)
         self._tag_family_entry.getTopic().setRetained(True)
         self._tag_size_entry.getTopic().setRetained(True)

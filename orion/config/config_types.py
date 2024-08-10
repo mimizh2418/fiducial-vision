@@ -27,6 +27,7 @@ class CameraConfig:
     resolution_width: int = 1280
     auto_exposure: float = 0.0
     exposure: float = 0.0
+    brightness: float = 0.0
     gain: float = 0.0
 
 
