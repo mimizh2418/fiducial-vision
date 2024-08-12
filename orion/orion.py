@@ -10,7 +10,7 @@ from .pipeline import DefaultCapture, Pipeline
 logger = logging.getLogger(__name__)
 
 NETWORK_CONFIG_FILE = 'config/network_config.json'
-CALIBRATION_FILE = 'config/calibration.json'
+CALIBRATION_FILE = 'config/calibration_arducam.json'
 
 
 def run_pipeline():
