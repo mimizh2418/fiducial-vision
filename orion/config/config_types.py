@@ -25,10 +25,10 @@ class CameraConfig:
     id: Union[int, str] = 0
     resolution_height: int = 720
     resolution_width: int = 1280
-    auto_exposure: float = 0.0
-    exposure: float = 0.0
-    brightness: float = 0.0
-    gain: float = 0.0
+    auto_exposure: int = 0
+    exposure: int = 0
+    brightness: int = 0
+    gain: int = 0
 
 
 @dataclass
@@ -36,4 +36,3 @@ class FiducialConfig:
     tag_family: int = cv2.aruco.DICT_APRILTAG_36h11
     tag_size_m: float = 0.1651
     tag_layout: Optional[Dict[int, Pose3d]] = None
-

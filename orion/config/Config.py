@@ -46,10 +46,10 @@ class Config:
     _camera_id_entry: ntcore.StringEntry
     _camera_resolution_w_entry: ntcore.IntegerEntry
     _camera_resolution_h_entry: ntcore.IntegerEntry
-    _camera_auto_exposure_entry: ntcore.DoubleEntry
-    _camera_exposure_entry: ntcore.DoubleEntry
-    _camera_brightness_entry: ntcore.DoubleEntry
-    _camera_gain_entry: ntcore.DoubleEntry
+    _camera_auto_exposure_entry: ntcore.IntegerEntry
+    _camera_exposure_entry: ntcore.IntegerEntry
+    _camera_brightness_entry: ntcore.IntegerEntry
+    _camera_gain_entry: ntcore.IntegerEntry
     _tag_family_entry: ntcore.StringEntry
     _tag_size_entry: ntcore.DoubleEntry
     _tag_layout_entry: ntcore.StringEntry
@@ -146,10 +146,10 @@ class Config:
         self._camera_resolution_h_entry = (
             table.getIntegerTopic("camera_resolution_height").getEntry(self.camera.resolution_height))
         self._camera_auto_exposure_entry = (
-            table.getDoubleTopic("camera_auto_exposure").getEntry(self.camera.auto_exposure))
-        self._camera_exposure_entry = table.getDoubleTopic("camera_exposure").getEntry(self.camera.exposure)
-        self._camera_brightness_entry = table.getDoubleTopic("camera_brightness").getEntry(self.camera.brightness)
-        self._camera_gain_entry = table.getDoubleTopic("camera_gain").getEntry(self.camera.gain)
+            table.getIntegerTopic("camera_auto_exposure").getEntry(self.camera.auto_exposure))
+        self._camera_exposure_entry = table.getIntegerTopic("camera_exposure").getEntry(self.camera.exposure)
+        self._camera_brightness_entry = table.getIntegerTopic("camera_brightness").getEntry(self.camera.brightness)
+        self._camera_gain_entry = table.getIntegerTopic("camera_gain").getEntry(self.camera.gain)
         self._tag_family_entry = table.getStringTopic("tag_family").getEntry("apriltag_36h11")
         self._tag_size_entry = table.getDoubleTopic("tag_size_m").getEntry(self.fiducial.tag_size_m)
         self._tag_layout_entry = table.getStringTopic("tag_layout").getEntry("")
