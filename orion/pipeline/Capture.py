@@ -87,9 +87,9 @@ class GStreamerCapture(Capture):
                         f"exposure_time_absolute={self._config.exposure},"
                         f"gain={self._config.gain},"
                         f"brightness={self._config.brightness}")
-        gst_pipeline_str = (f'v4l2src device={gst_device} extra_controls="{gst_controls}" '
+        gst_pipeline_str = (f'v4l2src device="{gst_device}" extra_controls="{gst_controls}" '
                             f'! image/jpeg,format=MJPG,width={self._config.resolution_width},'
                             f'height={self._config.resolution_height} '
-                            '! jpegdec ! video/x-raw ! appsink drop=1')
+                            '! jpegdec ! videoconvert ! appsink drop=1')
         self._video = cv2.VideoCapture(gst_pipeline_str, cv2.CAP_GSTREAMER)
         self._last_config = dataclasses.replace(self._config)

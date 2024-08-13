@@ -5,7 +5,7 @@ import ntcore
 
 from .config import Config
 from .output import NTOutputPublisher, StreamServer
-from .pipeline import DefaultCapture, Pipeline
+from .pipeline import DefaultCapture, GStreamerCapture, Pipeline
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +26,7 @@ def run_pipeline():
 
     config.refresh_nt()
 
-    capture = DefaultCapture(config)
+    capture = GStreamerCapture(config)
     pipeline = Pipeline(config)
     output = NTOutputPublisher(config)
     stream = StreamServer(config)
@@ -53,7 +53,7 @@ def run_pipeline():
         frame_count += 1
         current_time = time.perf_counter_ns()
         if current_time - last_fps_time > 1e9:
-            fps = frame_count / ((current_time - last_fps_time) * 1e-9)
+            fps = frame_count
             last_fps_time = current_time
             frame_count = 0
 
