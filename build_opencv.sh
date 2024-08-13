@@ -28,5 +28,6 @@ export ENABLE_CONTRIB=0
 export ENABLE_HEADLESS=1
 # Configure OpenCV build
 export CMAKE_ARGS="-DWITH_GSTREAMER=ON -DBUILD_NEW_PYTHON_SUPPORT=ON -DBUILD_opencv_python3=ON -DHAVE_opencv_python3=ON"
-export MAKEFLAGS="-j$(nproc)"
-python3 -m pip wheel . --verbose --wheel-dir ${PROJDIR}/wheels/
+MAKEFLAGS="-j$(nproc)"
+export MAKEFLAGS
+python3 -m pip wheel . --verbose --wheel-dir "${PROJDIR}/wheels/"
