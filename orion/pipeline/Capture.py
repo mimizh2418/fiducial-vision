@@ -30,7 +30,7 @@ class DefaultCapture(Capture):
     def __init__(self, config: Config):
         self._config = config.camera
         self._last_config = dataclasses.replace(self._config)
-        self._video = cv2.VideoCapture(self._config.id)
+        self._video = cv2.VideoCapture(self._config.id, cv2.CAP_V4L2)
         self._update_config()
 
     def get_frame(self) -> Tuple[bool, CaptureFrame]:

@@ -1,6 +1,7 @@
 __all__ = [
     "Capture",
     "DefaultCapture",
+    "GStreamerCapture"
     "CaptureFrame",
     "FiducialDetector",
     "ArUcoFiducialDetector",
@@ -12,7 +13,7 @@ __all__ = [
     "PipelineResult"
 ]
 
-from .Capture import Capture, DefaultCapture
+from .Capture import Capture, DefaultCapture, GStreamerCapture
 from .FiducialDetector import ArUcoFiducialDetector
 from .PoseEstimator import PoseEstimator
 from .Pipeline import Pipeline
