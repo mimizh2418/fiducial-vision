@@ -11,9 +11,12 @@ repository = "https://github.com/mimizh2418/orion"
 
 
 [tool.poetry.dependencies]
-python = "^3.9"
-numpy = "^1.26.4"
-opencv-python = "^4.10.0.84"
+python = "^3.11"
+numpy = "^1.23.5"
+opencv-python-headless = [
+    {path = "./wheels/opencv_python_headless-4.10.0.82-cp311-cp311-linux_aarch64.whl", markers = "platform_machine == 'aarch64'"},
+    {version = "^4.10.0.82", markers = "platform_machine != 'aarch64'", source = "PyPI"}
+]
 robotpy-wpiutil = [
     {version = "^2024.3.2.1", markers = "platform_machine != 'aarch64'", source = "PyPI"},
     {version = "^2024.3.2.1", markers = "platform_machine == 'aarch64'", source = "wpilib-artifactory"}
