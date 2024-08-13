@@ -1,5 +1,6 @@
 import dataclasses
 import logging
+import sys
 import time
 from abc import ABC, abstractmethod
 from typing import Tuple
@@ -26,11 +27,13 @@ class DefaultCapture(Capture):
     _config: CameraConfig
     _last_config: CameraConfig
     _video: cv2.VideoCapture
+    _api: int
 
     def __init__(self, config: Config):
         self._config = config.camera
         self._last_config = dataclasses.replace(self._config)
-        self._video = cv2.VideoCapture(self._config.id, cv2.CAP_V4L2)
+        self._api = cv2.CAP_V4L2 if sys.platform.startswith('linux') else cv2.CAP_ANY
+        self._video = cv2.VideoCapture(self._config.id, self._api)
         self._update_config()
 
     def get_frame(self) -> Tuple[bool, CaptureFrame]:
@@ -44,7 +47,7 @@ class DefaultCapture(Capture):
 
     def _update_config(self):
         if self._last_config.id != self._config.id:
-            self._video.open(self._config.id)
+            self._video.open(self._config.id, self._api)
         self._video.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter.fourcc('M', 'J', 'P', 'G'))
         self._video.set(cv2.CAP_PROP_FRAME_WIDTH, self._config.resolution_width)
         self._video.set(cv2.CAP_PROP_FRAME_HEIGHT, self._config.resolution_height)
@@ -85,8 +88,8 @@ class GStreamerCapture(Capture):
                         f"gain={self._config.gain},"
                         f"brightness={self._config.brightness}")
         gst_pipeline_str = (f'v4l2src device={gst_device} extra_controls="{gst_controls}" '
-                        f'! image/jpeg,format=MJPG,width={self._config.resolution_width},'
-                        f'height={self._config.resolution_height} '
-                        '! jpegdec ! video/x-raw ! appsink drop=1')
+                            f'! image/jpeg,format=MJPG,width={self._config.resolution_width},'
+                            f'height={self._config.resolution_height} '
+                            '! jpegdec ! video/x-raw ! appsink drop=1')
         self._video = cv2.VideoCapture(gst_pipeline_str, cv2.CAP_GSTREAMER)
         self._last_config = dataclasses.replace(self._config)
