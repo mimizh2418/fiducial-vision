@@ -9,8 +9,8 @@ from .pipeline import DefaultCapture, GStreamerCapture, Pipeline
 
 logger = logging.getLogger(__name__)
 
-NETWORK_CONFIG_FILE = 'config/network_config.json'
-CALIBRATION_FILE = 'config/calibration_arducam.json'
+NETWORK_CONFIG_FILE = 'device-config/network-config.json'
+CALIBRATION_FILE = 'device-config/calibration.json'
 
 
 def run_pipeline():

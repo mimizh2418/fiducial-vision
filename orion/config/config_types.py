@@ -9,9 +9,9 @@ from wpimath.geometry import Pose3d
 
 @dataclass
 class NetworkConfig:
-    device_id: str = "vision"
+    device_id: str = "orion"
     server_ip: str = "10.15.40.2"
-    stream_port: int = "8000"
+    stream_port: str = "8000"
 
 
 @dataclass
@@ -26,9 +26,9 @@ class CameraConfig:
     resolution_height: int = 720
     resolution_width: int = 1280
     auto_exposure: int = 0
-    exposure: int = 0
+    exposure: int = 25
     brightness: int = 0
-    gain: int = 0
+    gain: int = 20
 
 
 @dataclass

@@ -156,11 +156,6 @@ cython_debug/
 
 # Visual Studio Code project settings
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
 
 # Local History for Visual Studio Code
 .history/
@@ -168,4 +163,8 @@ cython_debug/
 # Built Visual Studio Code Extensions
 *.vsix
 
+# Jetbrains settings
 .idea/
+
+/device-config/*.*
+!/device-config/example-network-config.json
