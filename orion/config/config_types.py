@@ -25,7 +25,7 @@ class CameraConfig:
     id: Union[int, str] = 0
     resolution_height: int = 720
     resolution_width: int = 1280
-    auto_exposure: int = 0
+    auto_exposure: int = 1
     exposure: int = 25
     brightness: int = 0
     gain: int = 20

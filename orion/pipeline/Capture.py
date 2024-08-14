@@ -83,7 +83,7 @@ class GStreamerCapture(Capture):
         if self._video is not None:
             self._video.release()
         gst_device = f"/dev/video{self._config.id}" if type(self._config.id) is int else self._config.id
-        gst_controls = (f"c,exposure_auto={self._config.auto_exposure},"
+        gst_controls = (f"c,auto_exposure={self._config.auto_exposure},"
                         f"exposure_time_absolute={self._config.exposure},"
                         f"gain={self._config.gain},"
                         f"brightness={self._config.brightness}")
