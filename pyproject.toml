@@ -2,7 +2,7 @@
 package-mode = true
 name = "orion"
 version = "0.0.1"
-description = "Fiducial marker detection and pose estimation system"
+description = "A fiducial marker detection and pose estimation system for FRC robots"
 license = "MIT"
 authors = [
     "Alvin Zhang <41vin2h4n9@gmail.com>"
