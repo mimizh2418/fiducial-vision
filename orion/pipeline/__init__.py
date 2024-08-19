@@ -1,7 +1,7 @@
 __all__ = [
     "Capture",
     "DefaultCapture",
-    "GStreamerCapture"
+    "GStreamerCapture",
     "CaptureFrame",
     "FiducialDetector",
     "ArUcoFiducialDetector",
