@@ -1,4 +1,5 @@
 import logging
+from typing import Optional
 
 import ntcore
 
@@ -26,24 +27,31 @@ class NTOutputPublisher:
     def __init__(self, config: Config):
         self._config = config
 
-    def publish(self, result: PipelineResult, fps: float, heartbeat: int):
+    def publish(self, result: Optional[PipelineResult], fps: float, heartbeat: int):
         if not self._nt_initialized:
             self._init_nt()
 
-        time_offset = ntcore.NetworkTableInstance.getDefault().getServerTimeOffset() or 0
-        corrected_timestamp = (result.capture_timestamp_ns + time_offset * 1000)
-        self._timestamp_pub.set(corrected_timestamp)
         self._fps_pub.set(fps)
         self._heartbeat_pub.set(heartbeat)
 
-        self._tag_ids_pub.set(result.seen_tag_ids)
-        self._has_pose_estimate_pub.set(result.pose_estimate is not None)
-        self._has_tracked_targets_pub.set(len(result.tracked_targets) > 0)
-        if result.pose_estimate is not None:
-            self._pose_estimate_pub.set(result.pose_estimate)
-        if len(result.tracked_targets) > 0:
-            self._tracked_targets_pub.set(result.tracked_targets)
+        if result is not None:
+            time_offset = ntcore.NetworkTableInstance.getDefault().getServerTimeOffset() or 0
+            corrected_timestamp = (result.capture_timestamp_ns + time_offset * 1000)
+            self._timestamp_pub.set(corrected_timestamp)
+
+            self._tag_ids_pub.set(result.seen_tag_ids)
+            self._has_pose_estimate_pub.set(result.pose_estimate is not None)
+            self._has_tracked_targets_pub.set(len(result.tracked_targets) > 0)
+            if result.pose_estimate is not None:
+                self._pose_estimate_pub.set(result.pose_estimate)
+            if len(result.tracked_targets) > 0:
+                self._tracked_targets_pub.set(result.tracked_targets)
+            else:
+                self._tracked_targets_pub.set([])
         else:
+            self._tag_ids_pub.set([])
+            self._has_pose_estimate_pub.set(False)
+            self._has_tracked_targets_pub.set(False)
             self._tracked_targets_pub.set([])
 
     def _init_nt(self):

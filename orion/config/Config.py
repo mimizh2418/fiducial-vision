@@ -2,7 +2,7 @@ import json
 import logging
 from typing import Union
 
-import cv2.aruco
+import cv2
 import ntcore
 import numpy as np
 from wpimath.geometry import Pose3d, Rotation3d, Quaternion
@@ -42,6 +42,9 @@ class Config:
     calibration: Union[Calibration, None]
     fiducial: FiducialConfig
 
+    network_config_file: str
+    calibration_file: str
+
     _nt_initialized: bool = False
     _camera_id_entry: ntcore.StringEntry
     _camera_resolution_w_entry: ntcore.IntegerEntry
@@ -57,30 +60,32 @@ class Config:
     _last_family_update: int = -1
     _last_layout_update: int = -1
 
-    def __init__(self):
+    def __init__(self, network_config_file: str, calibration_file: str):
+        self.network_config_file = network_config_file
+        self.calibration_file = calibration_file
         self.network = NetworkConfig()
         self.camera = CameraConfig()
         self.calibration = Calibration()
         self.fiducial = FiducialConfig()
 
-    def refresh_local(self, network_config_file: str, calibration_file: str):
-        logger.info(f"Loading network config from {network_config_file}...")
+    def refresh_local(self):
+        logger.info(f"Loading network config from {self.network_config_file}...")
         try:
-            with open(network_config_file, "r") as f:
+            with open(self.network_config_file, "r") as f:
                 network_data = json.loads(f.read())
                 self.network.device_id = network_data["device_id"]
                 self.network.server_ip = network_data["server_ip"]
                 self.network.stream_port = network_data["stream_port"]
         except FileNotFoundError:
-            logger.error(f"Network config file {network_config_file} not found, using defaults")
+            logger.error(f"Network config file {self.network_config_file} not found, using defaults")
 
-        calib_data = cv2.FileStorage(calibration_file, cv2.FILE_STORAGE_READ)
+        calib_data = cv2.FileStorage(self.calibration_file, cv2.FILE_STORAGE_READ)
         intrinsics_mat = calib_data.getNode("camera_matrix").mat()
         dist_coeffs = calib_data.getNode("distortion_coefficients").mat()
         calib_data.release()
 
         if type(intrinsics_mat) is not np.ndarray or type(dist_coeffs) is not np.ndarray:
-            logger.warning(f"Calibration file {calibration_file} not found or invalid, pose estimation disabled")
+            logger.warning(f"Calibration file {self.calibration_file} not found or invalid, pose estimation disabled")
             self.calibration = None
         else:
             self.calibration.intrinsics_matrix = intrinsics_mat
@@ -138,7 +143,7 @@ class Config:
     def _init_nt(self):
         logger.info("Initializing NetworkTables config...")
 
-        table = ntcore.NetworkTableInstance.getDefault().getTable(f"/orion/{self.network.device_id}/config")
+        table = ntcore.NetworkTableInstance.getDefault().getTable(f"orion/{self.network.device_id}/config")
 
         self._camera_id_entry = table.getStringTopic("camera_id").getEntry(str(self.camera.id))
         self._camera_resolution_w_entry = (
